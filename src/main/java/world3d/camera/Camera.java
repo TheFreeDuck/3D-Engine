@@ -114,6 +114,12 @@ public class Camera extends Object3d  {
         super.update();
         updatePicturePlane();
     }
+
+    @Override
+    protected void updateMesh() {
+
+    }
+
     public void updatePicturePlane() {
         Vector forward = orientation.getForward().unitVector();
         Vector right = orientation.getRight().unitVector();

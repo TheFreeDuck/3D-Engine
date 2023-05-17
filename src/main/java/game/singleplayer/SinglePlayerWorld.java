@@ -3,6 +3,7 @@ package main.java.game.singleplayer;
 import main.java.game.Objects;
 import main.java.game.World;
 import main.java.math.Point3d;
+import main.java.math.Vector;
 import main.java.mesh.Vertex;
 import main.java.game.GamePanel;
 import main.java.world3d.object3d.standardobjects.Cuboid;
@@ -17,6 +18,8 @@ import java.awt.*;
  */
 public class SinglePlayerWorld extends World {
 
+    Sphere sphere;
+
     public SinglePlayerWorld(GamePanel gamePanel) {
         super(gamePanel);
         objects = new Objects();
@@ -30,27 +33,26 @@ public class SinglePlayerWorld extends World {
 
         objects.add(new Torus(200,100,40,40,new Vertex(-350,80,0.3)));
 
-        objects.add(new Sphere(25, new Vertex(2.5,70 ,13),20,20));
+        //objects.add(new Sphere(25, new Vertex(2.5,70 ,13),20,20));
 
         objects.add(new Cuboid(new Vertex(0, 10, 0), 21, 21, 21));
         for (int i = 0; i < 100; i++) {
             objects.add(new Cuboid(new Point3d(Math.max(2, Math.random() * 20), Math.random() * 20+10, Math.random() * 20), 1, 1, 1));
         }
+
+        sphere = new Sphere(25, new Vertex(2.5,70 ,13),20,20);
+        objects.add(sphere);
     }
 
     @Override
     public void update() {
+        sphere.rotate(0.01,new Vector(0.5,0.2,1));
         objects.update();
         player.update();
     }
 
     public void draw(Graphics g) {
-        try {
-            player.getCamera().drawProjectedObjects(objects.meshes(), g);
-        }catch (Exception e ){
-            e.getStackTrace();
-        }
-
+        player.getCamera().drawProjectedObjects(objects.meshes(), g);
     }
 
     @Override

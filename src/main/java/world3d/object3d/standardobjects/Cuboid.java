@@ -35,4 +35,8 @@ public class Cuboid extends Object3d  {
         return l;
     }
 
+    @Override
+    protected void updateMesh() {
+        mesh = new CuboidMesh(position,orientation,h,w,l);
+    }
 }

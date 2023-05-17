@@ -22,7 +22,15 @@ public abstract class Object3d  {
 
     public void update(){
         position = position.addVector(velocity);
+        updateMesh();
     }
+
+    public void rotate(double angle, Vector axis){
+        orientation.rotate(angle, axis);
+        updateMesh();
+    }
+
+    protected abstract void updateMesh();
 
     public Point3d getPosition() {
         return position;

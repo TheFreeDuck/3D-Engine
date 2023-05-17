@@ -30,6 +30,11 @@ public class Player extends Entity {
         camera.update();
     }
 
+    @Override
+    protected void updateMesh() {
+
+    }
+
     public void keyEvents() {
         movement = new Vector(0, 0, 0);
         if (Keys.MOVE_RIGHT.isPressed()) {

@@ -16,7 +16,6 @@ public class SphereMesh extends Mesh {
     public SphereMesh(Point3d origin, Orientation orientation, double radius, int nLongitudeSegments, int nLatitudeSegments) {
         super(origin, orientation);
         this.radius = radius;
-        orientation.rotate(50,Orientation.standard().getRight());
 
         // Create vertices
         double longitudeStep = 2 * Math.PI / nLongitudeSegments;
