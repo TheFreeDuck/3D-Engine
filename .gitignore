@@ -1,0 +1,7 @@
+
+.idea/*
+*.iml
+*.xml
+out/*
+text.txt
+bindings.txt
