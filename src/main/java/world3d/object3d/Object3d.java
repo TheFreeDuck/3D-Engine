@@ -14,14 +14,18 @@ public abstract class Object3d  {
     protected Orientation orientation;
     protected Vector velocity;
 
+    protected Vector rotation;
+
     protected Object3d(Point3d position, Orientation orientation) {
         this.position = position;
         this.orientation = orientation;
         velocity = new Vector(0, 0, 0);
+        rotation = new Vector(0, 0, 0);
     }
 
     public void update(){
         position = position.addVector(velocity);
+        rotate(rotation.scalar(), rotation);
         updateMesh();
     }
 
@@ -58,5 +62,13 @@ public abstract class Object3d  {
 
     public void setVelocity(Vector velocity) {
         this.velocity = velocity;
+    }
+
+    public Vector getRotation() {
+        return rotation;
+    }
+
+    public void setRotation(Vector rotation) {
+        this.rotation = rotation;
     }
 }

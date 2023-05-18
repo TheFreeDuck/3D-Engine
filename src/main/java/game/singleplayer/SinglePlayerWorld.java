@@ -1,11 +1,11 @@
 package main.java.game.singleplayer;
 
+import main.java.game.GamePanel;
 import main.java.game.Objects;
 import main.java.game.World;
 import main.java.math.Point3d;
 import main.java.math.Vector;
 import main.java.mesh.Vertex;
-import main.java.game.GamePanel;
 import main.java.world3d.object3d.standardobjects.Cuboid;
 import main.java.world3d.object3d.standardobjects.Pyramid;
 import main.java.world3d.object3d.standardobjects.Sphere;
@@ -17,8 +17,6 @@ import java.awt.*;
  * @author Fredrik
  */
 public class SinglePlayerWorld extends World {
-
-    Sphere sphere;
 
     public SinglePlayerWorld(GamePanel gamePanel) {
         super(gamePanel);
@@ -40,13 +38,13 @@ public class SinglePlayerWorld extends World {
             objects.add(new Cuboid(new Point3d(Math.max(2, Math.random() * 20), Math.random() * 20+10, Math.random() * 20), 1, 1, 1));
         }
 
-        sphere = new Sphere(25, new Vertex(2.5,70 ,13),20,20);
+        Sphere sphere = new Sphere(25, new Vertex(2.5,70 ,13),20,20);
         objects.add(sphere);
+        sphere.setRotation(new Vector(0.02,0.05,0.08));
     }
 
     @Override
     public void update() {
-        sphere.rotate(0.01,new Vector(0.5,0.2,1));
         objects.update();
         player.update();
     }

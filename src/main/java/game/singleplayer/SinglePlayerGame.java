@@ -2,7 +2,7 @@ package main.java.game.singleplayer;
 
 import main.java.game.Game;
 import main.java.game.World;
-import main.java.window.Frame;
+import main.java.app.Frame;
 import main.java.game.GamePanel;
 
 public class SinglePlayerGame {

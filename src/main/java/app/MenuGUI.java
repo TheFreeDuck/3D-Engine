@@ -6,9 +6,9 @@ import main.java.game.singleplayer.SinglePlayerWorld;
 import main.java.keyinput.KeyBindingsPanel;
 import main.java.network.client.Client;
 import main.java.network.client.ClientInput;
+import main.java.network.client.MultiPlayerGame;
 import main.java.network.client.MultiPlayerWorld;
 import main.java.network.server.ServerApp;
-import main.java.window.Frame;
 import main.java.game.GamePanel;
 
 import javax.swing.*;
@@ -80,7 +80,7 @@ public class MenuGUI extends JPanel {
         multiPlayerButton.addActionListener(e -> {
             GamePanel gamePanel = new GamePanel();
             World world = new MultiPlayerWorld(gamePanel);
-            Game game = new Game(world, frame, gamePanel);
+            MultiPlayerGame game = new MultiPlayerGame(world, frame, gamePanel);
 
             Client client = ClientInput.getClient(game);
             try {

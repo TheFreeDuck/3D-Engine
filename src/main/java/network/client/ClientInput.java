@@ -1,12 +1,11 @@
 package main.java.network.client;
 
 import com.formdev.flatlaf.FlatDarkLaf;
-import main.java.game.Game;
 
 import javax.swing.*;
 
 public class ClientInput {
-    public static Client getClient(Game game) {
+    public static Client getClient(MultiPlayerGame game) {
         try {
 
             CustomOptionPane customOptionPane = new CustomOptionPane();

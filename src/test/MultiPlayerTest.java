@@ -5,7 +5,7 @@ import main.java.game.GamePanel;
 import main.java.game.World;
 import main.java.network.client.*;
 import main.java.network.server.ServerApp;
-import main.java.window.Frame;
+import main.java.app.Frame;
 
 public class MultiPlayerTest {
     public static void main(String[] args) {
@@ -13,7 +13,7 @@ public class MultiPlayerTest {
         Frame frame = new Frame();
         GamePanel gamePanel = new GamePanel();
         World world = new MultiPlayerWorld(gamePanel);
-        Game game = new Game(world, frame , gamePanel);
+        MultiPlayerGame game = new MultiPlayerGame(world, frame , gamePanel);
 
         Client client = new Client("localhost", 6969,game);
         client.start();

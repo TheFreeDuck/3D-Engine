@@ -1,7 +1,6 @@
 package main.java.app;
 
 import com.formdev.flatlaf.FlatDarkLaf;
-import main.java.window.Frame;
 
 public class Application {
     Frame frame;

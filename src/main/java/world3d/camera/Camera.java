@@ -121,9 +121,9 @@ public class Camera extends Object3d  {
     }
 
     public void updatePicturePlane() {
-        Vector forward = orientation.getForward().unitVector();
-        Vector right = orientation.getRight().unitVector();
-        Vector up = orientation.getUp().unitVector();
+        Vector forward = orientation.getForward();
+        Vector right = orientation.getRight();
+        Vector up = orientation.getUp();
 
         Point3d topLeft = observer
                 .addDistanceAlongVector(forward, 1)

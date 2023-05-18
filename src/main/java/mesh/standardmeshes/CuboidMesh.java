@@ -1,7 +1,6 @@
 package main.java.mesh.standardmeshes;
 
 import main.java.math.Point3d;
-import main.java.math.Vector;
 import main.java.mesh.Edge;
 import main.java.mesh.Mesh;
 import main.java.mesh.Triangle;

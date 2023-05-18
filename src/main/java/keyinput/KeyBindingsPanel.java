@@ -1,6 +1,6 @@
 package main.java.keyinput;
 
-import main.java.window.Frame;
+import main.java.app.Frame;
 
 import javax.swing.*;
 import java.awt.*;

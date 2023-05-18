@@ -15,7 +15,7 @@ public class TorusMesh extends Mesh {
     double minorRadius;
 
     public TorusMesh(Point3d origin, Orientation orientation, double majorRadius, double minorRadius, int nMajorSegments, int nMinorSegments) {
-        super(origin, orientation);
+        super(origin, new Orientation(orientation));
         this.majorRadius = majorRadius;
         this.minorRadius = minorRadius;
 

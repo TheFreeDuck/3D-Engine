@@ -1,13 +1,8 @@
 package main.java.network.client;
 
-import main.java.game.Game;
 import main.java.network.server.PlayerData;
-import main.java.world3d.object3d.Object3d;
-import main.java.world3d.object3d.Orientation;
-import main.java.world3d.object3d.standardobjects.Sphere;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -50,7 +45,7 @@ public class Client {
         while (alive || socket.isBound()) {
             try {
                 ArrayList<PlayerData> playerData = (ArrayList<PlayerData>) inStream.readObject();
-                updateOtherPlayers(playerData);
+                game.updateOtherPlayers(playerData);
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null,  "Connection lost: " + e,"Connection lost", JOptionPane.ERROR_MESSAGE);
                 game.getFrame().menuState();
@@ -75,25 +70,5 @@ public class Client {
                     break;
                 }
             }
-    }
-
-    private void updateOtherPlayers(ArrayList<PlayerData> playerDataList){
-        ArrayList<Object3d> otherPlayers = new ArrayList<>();
-        for (PlayerData playerData : playerDataList) {
-            if(playerData != null) {
-                Sphere sphere = new Sphere(0.5, playerData.getPosition(), playerData.getOrientation(),20,20);
-                sphere.getMesh().setColor(Color.green);
-                otherPlayers.add(sphere);
-            }
-        }
-        try {
-            MultiPlayerWorld world = (MultiPlayerWorld) game.getWorld();
-            world.setOtherPlayers(otherPlayers);
-        }catch (Exception e) {
-            alive = false;
-
-        }
-
-
     }
 }

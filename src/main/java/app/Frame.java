@@ -1,7 +1,6 @@
-package main.java.window;
+package main.java.app;
 
 import com.formdev.flatlaf.FlatDarkLaf;
-import main.java.app.MenuGUI;
 import main.java.game.GamePanel;
 
 import javax.imageio.ImageIO;

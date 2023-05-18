@@ -3,7 +3,7 @@ package main.java.game;
 import main.java.keyinput.Keys;
 import main.java.math.Point3d;
 import main.java.math.Vector;
-import main.java.window.Frame;
+import main.java.app.Frame;
 import main.java.world3d.object3d.Orientation;
 
 public class Game {
