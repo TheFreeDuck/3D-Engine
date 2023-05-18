@@ -9,10 +9,14 @@ import main.java.math.Rectangle;
 
 public class PicturePlane extends Rectangle {
     private double aspectRatio;
+    private double w;
+    private double h;
 
     public PicturePlane(Point3d p1, Point3d p2, Point3d p3, Point3d p4) {
         super(p1, p2, p3, p4);
-        aspectRatio = p1.getDistanceFromPoint(p2)/p2.getDistanceFromPoint(p3);
+        w = p1.getDistanceFromPoint(p2);
+        h = p2.getDistanceFromPoint(p3);
+        aspectRatio = w/h;
     }
     public Point2d project3dPointOnPanel(Point3d intersect, Orientation orientation, GamePanel gamePanel) {
         Vector hypotenuse = new Vector(intersect, this.getVtx1());
@@ -28,5 +32,15 @@ public class PicturePlane extends Rectangle {
     }
     public double getAspectRatio() {
         return aspectRatio;
+    }
+
+    @Override
+    public double getW() {
+        return w;
+    }
+
+    @Override
+    public double getH() {
+        return h;
     }
 }
