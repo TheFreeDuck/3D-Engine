@@ -67,7 +67,6 @@ public class Client {
             while (alive || socket.isBound()) {
                 try {
                     PlayerData playerData = new PlayerData(game.getWorld().getPlayer().getPosition(),new Orientation(game.getWorld().getPlayer().getOrientation()));
-                    System.out.println(playerData);
                     outStream.writeObject(playerData);
                     outStream.flush();
                     Thread.sleep(16);

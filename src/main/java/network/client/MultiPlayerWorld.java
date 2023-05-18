@@ -3,6 +3,7 @@ package main.java.network.client;
 import main.java.game.Objects;
 import main.java.game.World;
 import main.java.math.Point3d;
+import main.java.math.Vector;
 import main.java.mesh.Vertex;
 import main.java.game.GamePanel;
 import main.java.world3d.object3d.Object3d;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 public class MultiPlayerWorld extends World {
 
     private Objects otherPlayers;
+    private Sphere sphere;
 
     public MultiPlayerWorld(GamePanel gamePanel) {
         super(gamePanel);
@@ -43,10 +45,14 @@ public class MultiPlayerWorld extends World {
             objects.add(new Cuboid(new Point3d(Math.max(2, Math.random() * 20), Math.random() * 20+10, Math.random() * 20), 1, 1, 1));
         }
 
+        sphere = new Sphere(25, new Vertex(2.5, 70, 13), 20, 20);
+        objects.add(sphere);
+
     }
 
     @Override
     public void update() {
+        sphere.rotate(0.01,new Vector(0.5,0.2,1));
         objects.update();
         player.update();
     }
