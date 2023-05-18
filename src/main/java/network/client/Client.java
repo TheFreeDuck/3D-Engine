@@ -18,10 +18,10 @@ public class Client {
     private Socket socket;
     private ObjectInputStream inStream;
     private ObjectOutputStream outStream;
-    private Game game;
+    private MultiPlayerGame game;
     private boolean alive;
 
-    public Client(String address, int port, Game game) {
+    public Client(String address, int port, MultiPlayerGame game) {
         this.game = game;
         try {
             socket = new Socket(address, port);
@@ -66,7 +66,7 @@ public class Client {
     private void send() {
             while (alive || socket.isBound()) {
                 try {
-                    PlayerData playerData = new PlayerData(game.getWorld().getPlayer().getPosition(),new Orientation(game.getWorld().getPlayer().getOrientation()));
+                    PlayerData playerData = game.getPlayerData();
                     outStream.writeObject(playerData);
                     outStream.flush();
                     Thread.sleep(16);
