@@ -26,8 +26,8 @@ public class SphereMesh extends Mesh {
             for (int j = 0; j <= nLatitudeSegments; j++) {
                 double latitude = j * latitudeStep;
                 double x = radius * Math.sin(latitude) * Math.cos(longitude);
-                double y = radius * Math.sin(latitude) * Math.sin(longitude);
-                double z = radius * Math.cos(latitude);
+                double y = radius * Math.cos(latitude);
+                double z = radius * Math.sin(latitude) * Math.sin(longitude);
                 Vector vertexPosition = new Vector(x, y, z);
                 Point3d transformedVertexPosition = orientation.multiply(vertexPosition).add(origin);
                 vertices.add(new Vertex(transformedVertexPosition));
@@ -41,19 +41,28 @@ public class SphereMesh extends Mesh {
             for (int j = 0; j < nLatitudeSegments; j++) {
                 int v1 = j + (nLatitudeSegments + 1) * i;
                 int v2 = j + (nLatitudeSegments + 1) * (i + 1);
+                int v3 = j + 1 + (nLatitudeSegments + 1) * (i + 1);
+                int v4 = j + 1 + (nLatitudeSegments + 1) * i;
+
                 edges.put(count++, new Edge(v1, v2));
+                edges.put(count++, new Edge(v2, v3));
+                edges.put(count++, new Edge(v3, v4));
+                edges.put(count++, new Edge(v4, v1));
             }
         }
 
+        // Create triangles
+        triangles = new HashMap<>();
+        count = 0;
         for (int i = 0; i < nLongitudeSegments; i++) {
             for (int j = 0; j < nLatitudeSegments; j++) {
                 int v1 = j + (nLatitudeSegments + 1) * i;
                 int v2 = j + (nLatitudeSegments + 1) * (i + 1);
-                int v3 = j + 1 + (nLatitudeSegments + 1) * i;
-                int v4 = j + 1 + (nLatitudeSegments + 1) * (i + 1);
-                triangles.put(2 * count, new Triangle(v1, v2, v3));
-                triangles.put(2 * count + 1, new Triangle(v2, v4, v3));
-                count++;
+                int v3 = j + 1 + (nLatitudeSegments + 1) * (i + 1);
+                int v4 = j + 1 + (nLatitudeSegments + 1) * i;
+
+                triangles.put(count++, new Triangle(v1, v2, v3));
+                triangles.put(count++, new Triangle(v1, v3, v4));
             }
         }
     }
