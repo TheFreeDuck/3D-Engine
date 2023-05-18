@@ -14,7 +14,7 @@ public class ClientHandler {
 
     private ObjectInputStream inStream;
     private ObjectOutputStream outStream;
-    private Point3d position;
+    private TransformState transformState;
 
     Socket socket;
     public ClientHandler(Socket socket,Server server) throws IOException {
@@ -27,16 +27,13 @@ public class ClientHandler {
     public void start() {
         try {
             while (socket.isConnected()) {
-                // read a single byte from the client's input stream
-                position = (Point3d) inStream.readObject();
+                transformState = (TransformState) inStream.readObject();
             }
         } catch (IOException e) {
-            // An error occurred while reading from the stream, assume the client has disconnected
             if (!socket.isClosed()) {
                 disconnect();
             }
         } catch (Exception e) {
-            // Catch any other exceptions that may occur
             e.printStackTrace();
             disconnect();
         }
@@ -81,7 +78,7 @@ public class ClientHandler {
         return inStream;
     }
 
-    public Point3d getPosition() {
-        return position;
+    public TransformState getTransformState() {
+        return transformState;
     }
 }

@@ -23,6 +23,16 @@ public class Sphere extends Object3d  {
 
     }
 
+    public Sphere(double radius, Point3d center, Orientation orientation, int nLongitudeSegments, int nLatitudeSegments) {
+        super(center,orientation);
+        this.center= center;
+        this.radius= radius;
+        this.nLongitudeSegments= nLongitudeSegments;
+        this.nLatitudeSegments = nLatitudeSegments;
+        mesh = new SphereMesh(center,Orientation.standard(), radius,nLongitudeSegments,nLatitudeSegments);
+
+    }
+
     @Override
     protected void updateMesh() {
         mesh = new SphereMesh(center,orientation, radius,nLongitudeSegments,nLatitudeSegments);

@@ -48,20 +48,20 @@ public class Server {
         }
     }
     private void sendUpdates() {
-        ArrayList<Point3d> positions = getPositions();
+        ArrayList<TransformState> transformStates = getTransformStates();
         for (int i = 0; i < clients.size(); i++) {
-            ArrayList<Point3d> otherPositions = (ArrayList<Point3d>) positions.clone();
-            otherPositions.remove(i);
-            clients.get(i).sendPositions(otherPositions);
+            ArrayList<Point3d> otherTransformStates = (ArrayList<Point3d>) transformStates.clone();
+            otherTransformStates.remove(i);
+            clients.get(i).sendPositions(otherTransformStates);
         }
     }
 
-    private ArrayList<Point3d> getPositions(){
-        ArrayList<Point3d> positions = new ArrayList<>();
+    private ArrayList<TransformState> getTransformStates(){
+        ArrayList<TransformState> transformStates = new ArrayList<>();
         for(ClientHandler client : clients) {
-            positions.add(client.getPosition());
+            transformStates.add(client.getTransformState());
         }
-        return positions;
+        return transformStates;
     }
 
     public void removeClient(ClientHandler client) {

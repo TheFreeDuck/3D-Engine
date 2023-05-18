@@ -2,7 +2,9 @@ package main.java.world3d.object3d;
 
 import main.java.math.Vector;
 
-public class Orientation  {
+import java.io.Serializable;
+
+public class Orientation implements Serializable {
     private Vector forward;
     private Vector right;
     private Vector up;

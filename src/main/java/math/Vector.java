@@ -1,11 +1,12 @@
 package main.java.math;
 
 
+import java.io.Serializable;
 
 /**
  * @author Fredrik
  */
-public class Vector  {
+public class Vector implements Serializable {
 
     private double x;
     private double y;

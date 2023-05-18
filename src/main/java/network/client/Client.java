@@ -1,7 +1,7 @@
 package main.java.network.client;
 
 import main.java.game.Game;
-import main.java.math.Point3d;
+import main.java.network.server.TransformState;
 import main.java.world3d.object3d.Object3d;
 import main.java.world3d.object3d.standardobjects.Sphere;
 
@@ -48,8 +48,8 @@ public class Client {
     private void listen() {
         while (alive || socket.isBound()) {
             try {
-                ArrayList<Point3d> positions = (ArrayList<Point3d>) inStream.readObject();
-                updateOtherPlayers(positions);
+                ArrayList<TransformState> transformStates = (ArrayList<TransformState>) inStream.readObject();
+                updateOtherPlayers(transformStates);
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null,  "Connection lost: " + e,"Connection lost", JOptionPane.ERROR_MESSAGE);
                 game.getFrame().menuState();
@@ -65,7 +65,7 @@ public class Client {
     private void send() {
             while (alive || socket.isBound()) {
                 try {
-                    outStream.writeObject(game.getWorld().getPlayer().getPosition());
+                    outStream.writeObject(new TransformState(game.getWorld().getPlayer().getPosition(),game.getWorld().getPlayer().getOrientation()));
                     outStream.flush();
                     Thread.sleep(16);
                 } catch (InterruptedException | IOException e) {
@@ -75,11 +75,11 @@ public class Client {
             }
     }
 
-    private void updateOtherPlayers(ArrayList<Point3d> positions){
+    private void updateOtherPlayers(ArrayList<TransformState> transformStates){
         ArrayList<Object3d> otherPlayers = new ArrayList<>();
-        for (Point3d position : positions) {
-            if(position != null) {
-                Sphere sphere = new Sphere(0.5, position,20,20);
+        for (TransformState transformState : transformStates) {
+            if(transformState != null) {
+                Sphere sphere = new Sphere(0.5, transformState.getPosition(), transformState.getOrientation(),20,20);
                 sphere.getMesh().setColor(Color.green);
                 otherPlayers.add(sphere);
             }
