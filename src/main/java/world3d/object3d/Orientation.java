@@ -69,4 +69,13 @@ public class Orientation implements Serializable {
     public Vector getRight() {
         return right.unitVector();
     }
+
+    @Override
+    public String toString() {
+        return "Orientation{" +
+                "forward=" + forward +
+                ", right=" + right +
+                ", up=" + up +
+                '}';
+    }
 }

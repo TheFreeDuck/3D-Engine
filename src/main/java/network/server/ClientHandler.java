@@ -1,7 +1,5 @@
 package main.java.network.server;
 
-import main.java.math.Point3d;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -14,7 +12,7 @@ public class ClientHandler {
 
     private ObjectInputStream inStream;
     private ObjectOutputStream outStream;
-    private TransformState transformState;
+    private PlayerData playerData;
 
     Socket socket;
     public ClientHandler(Socket socket,Server server) throws IOException {
@@ -27,7 +25,7 @@ public class ClientHandler {
     public void start() {
         try {
             while (socket.isConnected()) {
-                transformState = (TransformState) inStream.readObject();
+                playerData = (PlayerData) inStream.readObject();
             }
         } catch (IOException e) {
             if (!socket.isClosed()) {
@@ -39,9 +37,9 @@ public class ClientHandler {
         }
 
     }
-    public void sendPositions(ArrayList<Point3d> positions) {
+    public void sendPlayerData(ArrayList<PlayerData> playerData) {
         try {
-            outStream.writeObject(positions);
+            outStream.writeObject(playerData);
             outStream.reset();
             outStream.flush();
         } catch (Exception e) {
@@ -78,7 +76,7 @@ public class ClientHandler {
         return inStream;
     }
 
-    public TransformState getTransformState() {
-        return transformState;
+    public PlayerData getPlayerData() {
+        return playerData;
     }
 }

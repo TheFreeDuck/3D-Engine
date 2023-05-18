@@ -1,7 +1,7 @@
 package main.java.network.client;
 
 import main.java.game.Game;
-import main.java.network.server.TransformState;
+import main.java.network.server.PlayerData;
 import main.java.world3d.object3d.Object3d;
 import main.java.world3d.object3d.standardobjects.Sphere;
 
@@ -48,8 +48,8 @@ public class Client {
     private void listen() {
         while (alive || socket.isBound()) {
             try {
-                ArrayList<TransformState> transformStates = (ArrayList<TransformState>) inStream.readObject();
-                updateOtherPlayers(transformStates);
+                ArrayList<PlayerData> playerData = (ArrayList<PlayerData>) inStream.readObject();
+                updateOtherPlayers(playerData);
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null,  "Connection lost: " + e,"Connection lost", JOptionPane.ERROR_MESSAGE);
                 game.getFrame().menuState();
@@ -65,7 +65,7 @@ public class Client {
     private void send() {
             while (alive || socket.isBound()) {
                 try {
-                    outStream.writeObject(new TransformState(game.getWorld().getPlayer().getPosition(),game.getWorld().getPlayer().getOrientation()));
+                    outStream.writeObject(new PlayerData(game.getWorld().getPlayer().getPosition(),game.getWorld().getPlayer().getOrientation()));
                     outStream.flush();
                     Thread.sleep(16);
                 } catch (InterruptedException | IOException e) {
@@ -75,11 +75,11 @@ public class Client {
             }
     }
 
-    private void updateOtherPlayers(ArrayList<TransformState> transformStates){
+    private void updateOtherPlayers(ArrayList<PlayerData> playerDataList){
         ArrayList<Object3d> otherPlayers = new ArrayList<>();
-        for (TransformState transformState : transformStates) {
-            if(transformState != null) {
-                Sphere sphere = new Sphere(0.5, transformState.getPosition(), transformState.getOrientation(),20,20);
+        for (PlayerData playerData : playerDataList) {
+            if(playerData != null) {
+                Sphere sphere = new Sphere(0.5, playerData.getPosition(), playerData.getOrientation(),20,20);
                 sphere.getMesh().setColor(Color.green);
                 otherPlayers.add(sphere);
             }

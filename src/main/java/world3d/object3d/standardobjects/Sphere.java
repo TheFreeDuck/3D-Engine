@@ -29,7 +29,7 @@ public class Sphere extends Object3d  {
         this.radius= radius;
         this.nLongitudeSegments= nLongitudeSegments;
         this.nLatitudeSegments = nLatitudeSegments;
-        mesh = new SphereMesh(center,Orientation.standard(), radius,nLongitudeSegments,nLatitudeSegments);
+        mesh = new SphereMesh(center,orientation, radius,nLongitudeSegments,nLatitudeSegments);
 
     }
 

@@ -1,7 +1,5 @@
 package main.java.network.server;
 
-import main.java.math.Point3d;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -48,20 +46,20 @@ public class Server {
         }
     }
     private void sendUpdates() {
-        ArrayList<TransformState> transformStates = getTransformStates();
+        ArrayList<PlayerData> playerData = getPlayerData();
         for (int i = 0; i < clients.size(); i++) {
-            ArrayList<Point3d> otherTransformStates = (ArrayList<Point3d>) transformStates.clone();
-            otherTransformStates.remove(i);
-            clients.get(i).sendPositions(otherTransformStates);
+            ArrayList<PlayerData> otherPlayerData = (ArrayList<PlayerData>) playerData.clone();
+            otherPlayerData.remove(i);
+            clients.get(i).sendPlayerData(otherPlayerData);
         }
     }
 
-    private ArrayList<TransformState> getTransformStates(){
-        ArrayList<TransformState> transformStates = new ArrayList<>();
+    private ArrayList<PlayerData> getPlayerData(){
+        ArrayList<PlayerData> playerData = new ArrayList<>();
         for(ClientHandler client : clients) {
-            transformStates.add(client.getTransformState());
+            playerData.add(client.getPlayerData());
         }
-        return transformStates;
+        return playerData;
     }
 
     public void removeClient(ClientHandler client) {

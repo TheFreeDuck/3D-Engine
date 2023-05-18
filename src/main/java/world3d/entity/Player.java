@@ -26,7 +26,7 @@ public class Player extends Entity {
     public void update() {
         position = position.addVector(velocity.addVector(movement));
         camera.setOrientation(orientation);
-        camera.setObserver(position.addDistanceAlongVector(orientation.getForward(),-1).addDistanceAlongVector(orientation.getUp(),0.5));
+        camera.setObserver(position);
         camera.update();
     }
 

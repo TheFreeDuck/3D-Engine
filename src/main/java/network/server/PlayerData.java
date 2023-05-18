@@ -5,13 +5,13 @@ import main.java.world3d.object3d.Orientation;
 
 import java.io.Serializable;
 
-public class TransformState implements Serializable {
+public class PlayerData implements Serializable {
 
     private Point3d position;
     private Orientation orientation;
 
 
-    public TransformState(Point3d position, Orientation orientation) {
+    public PlayerData(Point3d position, Orientation orientation) {
         this.position = position;
         this.orientation = orientation;
     }
