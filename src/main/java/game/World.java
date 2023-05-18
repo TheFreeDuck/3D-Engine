@@ -1,7 +1,6 @@
 package main.java.game;
 
 import main.java.math.Point3d;
-import main.java.math.Vector;
 import main.java.world3d.entity.Player;
 import main.java.world3d.object3d.Orientation;
 

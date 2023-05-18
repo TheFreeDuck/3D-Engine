@@ -1,7 +1,6 @@
 package main.java.world3d.object3d.standardobjects;
 
 import main.java.math.Point3d;
-import main.java.math.Vector;
 import main.java.mesh.standardmeshes.TorusMesh;
 import main.java.world3d.object3d.Object3d;
 import main.java.world3d.object3d.Orientation;
@@ -24,6 +23,6 @@ public class Torus extends Object3d {
 
     @Override
     protected void updateMesh() {
-        mesh = new TorusMesh(position,Orientation.standard(),radius1, radius2, nSides, nRings);
+        mesh = new TorusMesh(position,orientation,radius1, radius2, nSides, nRings);
     }
 }

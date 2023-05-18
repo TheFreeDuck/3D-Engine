@@ -26,6 +26,7 @@ public class ClientHandler {
         try {
             while (socket.isConnected()) {
                 playerData = (PlayerData) inStream.readObject();
+                System.out.println(playerData);
             }
         } catch (IOException e) {
             if (!socket.isClosed()) {

@@ -3,6 +3,7 @@ package main.java.network.client;
 import main.java.game.Game;
 import main.java.network.server.PlayerData;
 import main.java.world3d.object3d.Object3d;
+import main.java.world3d.object3d.Orientation;
 import main.java.world3d.object3d.standardobjects.Sphere;
 
 import javax.swing.*;
@@ -65,7 +66,9 @@ public class Client {
     private void send() {
             while (alive || socket.isBound()) {
                 try {
-                    outStream.writeObject(new PlayerData(game.getWorld().getPlayer().getPosition(),game.getWorld().getPlayer().getOrientation()));
+                    PlayerData playerData = new PlayerData(game.getWorld().getPlayer().getPosition(),new Orientation(game.getWorld().getPlayer().getOrientation()));
+                    System.out.println(playerData);
+                    outStream.writeObject(playerData);
                     outStream.flush();
                     Thread.sleep(16);
                 } catch (InterruptedException | IOException e) {

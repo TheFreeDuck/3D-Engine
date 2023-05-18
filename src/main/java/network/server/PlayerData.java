@@ -7,8 +7,8 @@ import java.io.Serializable;
 
 public class PlayerData implements Serializable {
 
-    private Point3d position;
     private Orientation orientation;
+    private Point3d position;
 
 
     public PlayerData(Point3d position, Orientation orientation) {
@@ -20,15 +20,15 @@ public class PlayerData implements Serializable {
         return orientation;
     }
 
-    public void setOrientation(Orientation orientation) {
-        this.orientation = orientation;
-    }
-
     public Point3d getPosition() {
         return position;
     }
 
-    public void setPosition(Point3d position) {
-        this.position = position;
+    @Override
+    public String toString() {
+        return "PlayerData{" +
+                "position=" + position +
+                ", orientation=" + orientation +
+                '}';
     }
 }

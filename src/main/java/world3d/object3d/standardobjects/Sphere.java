@@ -1,4 +1,5 @@
 package main.java.world3d.object3d.standardobjects;
+
 import main.java.math.Point3d;
 import main.java.mesh.standardmeshes.SphereMesh;
 import main.java.world3d.object3d.Object3d;
@@ -19,7 +20,7 @@ public class Sphere extends Object3d  {
         this.radius= radius;
         this.nLongitudeSegments= nLongitudeSegments;
         this.nLatitudeSegments = nLatitudeSegments;
-        mesh = new SphereMesh(center,Orientation.standard(), radius,nLongitudeSegments,nLatitudeSegments);
+        mesh = new SphereMesh(center,orientation, radius,nLongitudeSegments,nLatitudeSegments);
 
     }
 

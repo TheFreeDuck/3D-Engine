@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -75,13 +74,25 @@ public class ServerFrame extends JFrame {
         setVisible(true);
 
         // Redirect console output to JTextArea
-        System.setOut(new PrintStream(new OutputStream() {
+        // Redirect console output to JTextArea and console
+        // Create a custom OutputStream that writes to both consoleTextArea and System.out
+        PrintStream consoleStream = new PrintStream(System.out) {
             @Override
-            public void write(int b) throws IOException {
-                consoleTextArea.append(String.valueOf((char) b));
+            public void write(byte[] buf, int off, int len) {
+                // Append the characters to the consoleTextArea
+                String message = new String(buf, off, len);
+                consoleTextArea.append(message);
+
+                // Scroll to the end of the text area
                 scrollPane.getVerticalScrollBar().setValue(scrollPane.getVerticalScrollBar().getMaximum());
+
+                // Write the characters to System.out
+                super.write(buf, off, len);
             }
-        }));
+        };
+
+        // Redirect console output to the custom PrintStream
+        System.setOut(consoleStream);
     }
 
     private String getIpAddress() {
