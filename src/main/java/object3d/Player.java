@@ -1,25 +1,29 @@
-package main.java.world3d.entity;
+package main.java.object3d;
 
+import main.java.game.GamePanel;
 import main.java.keyinput.Keys;
 import main.java.math.Point3d;
 import main.java.math.Vector;
-import main.java.game.GamePanel;
-import main.java.world3d.camera.Camera;
-import main.java.world3d.object3d.Orientation;
+import main.java.mesh.standardmeshes.CameraMesh;
+import main.java.object3d.camera.Camera;
 
-public class Player extends Entity {
+public class Player extends Object3d {
     private Vector movement;
     private double movementSpeed;
 
     private double rotationSpeed;
     private Camera camera;
 
+    public Camera camera2;
+
     public Player(Point3d position, Orientation orientation, GamePanel gamePanel) {
         super(position, orientation);
         camera = new Camera(position, orientation, gamePanel);
+        camera2 = new Camera(position.addDistanceAlongVector(orientation.getForward(), -2), Orientation.standard(), gamePanel);
         movement = new Vector(0, 0, 0);
         movementSpeed = 0;
         rotationSpeed = 0.01;
+        mesh = new CameraMesh(position, orientation,camera.getPicturePlane());
     }
 
     @Override
@@ -28,15 +32,18 @@ public class Player extends Entity {
         camera.setObserver(position);
         camera.setOrientation(orientation);
         camera.update();
+        camera2.update();
+        updateMesh();
     }
 
     @Override
     protected void updateMesh() {
-
+        mesh = new CameraMesh(position, orientation,camera.getPicturePlane());
     }
 
     public void keyEvents() {
         movement = new Vector(0, 0, 0);
+        rotation = new Vector(0, 0, 0);
         if (Keys.MOVE_RIGHT.isPressed()) {
             movement = movement.addVector(orientation.getRight().multiplyScalar(movementSpeed));
         } else if (Keys.MOVE_LEFT.isPressed()) {

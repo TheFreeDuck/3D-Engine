@@ -5,9 +5,9 @@ import main.java.game.World;
 import main.java.network.server.PlayerData;
 import main.java.app.Frame;
 import main.java.game.GamePanel;
-import main.java.world3d.object3d.Object3d;
-import main.java.world3d.object3d.Orientation;
-import main.java.world3d.object3d.standardobjects.Sphere;
+import main.java.object3d.Object3d;
+import main.java.object3d.Orientation;
+import main.java.object3d.standardobjects.Sphere;
 
 import java.awt.*;
 import java.util.ArrayList;

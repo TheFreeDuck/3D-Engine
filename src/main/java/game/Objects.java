@@ -1,7 +1,7 @@
 package main.java.game;
 
 import main.java.mesh.Mesh;
-import main.java.world3d.object3d.Object3d;
+import main.java.object3d.Object3d;
 
 
 import java.util.ArrayList;

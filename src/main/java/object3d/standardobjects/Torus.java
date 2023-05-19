@@ -1,9 +1,9 @@
-package main.java.world3d.object3d.standardobjects;
+package main.java.object3d.standardobjects;
 
 import main.java.math.Point3d;
 import main.java.mesh.standardmeshes.TorusMesh;
-import main.java.world3d.object3d.Object3d;
-import main.java.world3d.object3d.Orientation;
+import main.java.object3d.Object3d;
+import main.java.object3d.Orientation;
 
 public class Torus extends Object3d {
     private double radius1;

@@ -1,7 +1,7 @@
 package main.java.network.server;
 
 import main.java.math.Point3d;
-import main.java.world3d.object3d.Orientation;
+import main.java.object3d.Orientation;
 
 import java.io.Serializable;
 

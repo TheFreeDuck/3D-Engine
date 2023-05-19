@@ -1,7 +1,7 @@
 package main.java.mesh;
 
 import main.java.math.Point3d;
-import main.java.world3d.object3d.Orientation;
+import main.java.object3d.Orientation;
 
 import java.awt.*;
 import java.util.ArrayList;

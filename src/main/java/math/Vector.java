@@ -60,6 +60,20 @@ public class Vector implements Serializable {
         return new Vector(x * scalar, y * scalar, z * scalar);
     }
 
+    public void setScalar(double scalar) {
+        double magnitude = scalar / scalar();
+        x *= magnitude;
+        y *= magnitude;
+        z *= magnitude;
+    }
+
+    public Vector getScalarVector(double scalar) {
+        double magnitude = scalar / scalar();
+        return new Vector(x * magnitude, y * magnitude, z * magnitude);
+    }
+
+
+
     public Point3d add(Point3d point) {
         return new Point3d(x + point.getX(), y + point.getY(), z + point.getZ());
     }

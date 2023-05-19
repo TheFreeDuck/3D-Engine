@@ -1,4 +1,4 @@
-package main.java.world3d.object3d;
+package main.java.object3d;
 
 import main.java.math.Vector;
 

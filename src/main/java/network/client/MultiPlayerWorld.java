@@ -6,11 +6,11 @@ import main.java.math.Point3d;
 import main.java.math.Vector;
 import main.java.mesh.Vertex;
 import main.java.game.GamePanel;
-import main.java.world3d.object3d.Object3d;
-import main.java.world3d.object3d.standardobjects.Cuboid;
-import main.java.world3d.object3d.standardobjects.Pyramid;
-import main.java.world3d.object3d.standardobjects.Sphere;
-import main.java.world3d.object3d.standardobjects.Torus;
+import main.java.object3d.Object3d;
+import main.java.object3d.standardobjects.Cuboid;
+import main.java.object3d.standardobjects.Pyramid;
+import main.java.object3d.standardobjects.Sphere;
+import main.java.object3d.standardobjects.Torus;
 
 import java.awt.*;
 import java.util.ArrayList;

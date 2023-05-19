@@ -6,7 +6,7 @@ import main.java.mesh.Vertex;
 import main.java.mesh.Edge;
 import main.java.mesh.Mesh;
 import main.java.mesh.Triangle;
-import main.java.world3d.object3d.Orientation;
+import main.java.object3d.Orientation;
 
 import java.util.HashMap;
 

@@ -6,10 +6,10 @@ import main.java.game.World;
 import main.java.math.Point3d;
 import main.java.math.Vector;
 import main.java.mesh.Vertex;
-import main.java.world3d.object3d.standardobjects.Cuboid;
-import main.java.world3d.object3d.standardobjects.Pyramid;
-import main.java.world3d.object3d.standardobjects.Sphere;
-import main.java.world3d.object3d.standardobjects.Torus;
+import main.java.object3d.standardobjects.Cuboid;
+import main.java.object3d.standardobjects.Pyramid;
+import main.java.object3d.standardobjects.Sphere;
+import main.java.object3d.standardobjects.Torus;
 
 import java.awt.*;
 
@@ -34,6 +34,7 @@ public class SinglePlayerWorld extends World {
         //objects.add(new Sphere(25, new Vertex(2.5,70 ,13),20,20));
 
         objects.add(new Cuboid(new Vertex(0, 10, 0), 21, 21, 21));
+        //objects.add(player);
         for (int i = 0; i < 100; i++) {
             objects.add(new Cuboid(new Point3d(Math.max(2, Math.random() * 20), Math.random() * 20+10, Math.random() * 20), 1, 1, 1));
         }
@@ -51,6 +52,7 @@ public class SinglePlayerWorld extends World {
 
     public void draw(Graphics g) {
         player.getCamera().drawProjectedObjects(objects.meshes(), g);
+        //player.camera2.drawProjectedObjects(objects.meshes(), g);
     }
 
     @Override

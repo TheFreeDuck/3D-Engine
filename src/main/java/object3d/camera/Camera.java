@@ -1,16 +1,17 @@
-package main.java.world3d.camera;
+package main.java.object3d.camera;
 
-import main.java.math.Rectangle;
-import main.java.math.*;
+import main.java.game.GamePanel;
+import main.java.math.Point2d;
+import main.java.math.Point3d;
+import main.java.math.Ray;
+import main.java.math.Vector;
 import main.java.mesh.Edge;
 import main.java.mesh.Mesh;
 import main.java.mesh.Vertex;
-import main.java.game.GamePanel;
-import main.java.world3d.object3d.Object3d;
-import main.java.world3d.object3d.Orientation;
+import main.java.object3d.Object3d;
+import main.java.object3d.Orientation;
 
 import java.awt.*;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -36,7 +37,7 @@ public class Camera extends Object3d  {
         HashMap<Integer, ProjectedMesh> projectedMeshes = projectMeshes(meshes);
         for (int i = 0; i < projectedMeshes.size(); i++) {
             projectedMeshes.get(i).drawEdges(g);
-            //projectedMeshes.get(i).drawVertices(g);
+            projectedMeshes.get(i).drawVertices(g);
 
         }
 
@@ -158,7 +159,7 @@ public class Camera extends Object3d  {
         this.observer = observer;
     }
 
-    public Rectangle getPicturePlane() {
+    public PicturePlane getPicturePlane() {
         return picturePlane;
     }
 }

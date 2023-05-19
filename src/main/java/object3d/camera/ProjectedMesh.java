@@ -1,4 +1,4 @@
-package main.java.world3d.camera;
+package main.java.object3d.camera;
 
 import main.java.math.Point2d;
 import main.java.mesh.Mesh;

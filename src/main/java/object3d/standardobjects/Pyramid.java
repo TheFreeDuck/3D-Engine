@@ -1,9 +1,9 @@
-package main.java.world3d.object3d.standardobjects;
+package main.java.object3d.standardobjects;
 
 import main.java.math.Point3d;
 import main.java.mesh.standardmeshes.PyramidMesh;
-import main.java.world3d.object3d.Object3d;
-import main.java.world3d.object3d.Orientation;
+import main.java.object3d.Object3d;
+import main.java.object3d.Orientation;
 
 
 
