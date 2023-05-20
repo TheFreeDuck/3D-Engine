@@ -1,13 +1,13 @@
 package main.java.network.client;
 
-import main.java.game.Game;
-import main.java.game.World;
-import main.java.network.server.PlayerData;
 import main.java.app.Frame;
+import main.java.game.Game;
 import main.java.game.GamePanel;
-import main.java.object3d.Object3d;
+import main.java.game.World;
+import main.java.mesh.Mesh;
+import main.java.mesh.standardmeshes.CameraMesh;
+import main.java.network.server.PlayerData;
 import main.java.object3d.Orientation;
-import main.java.object3d.standardobjects.Sphere;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -26,12 +26,12 @@ public class MultiPlayerGame extends Game{
     }
 
     public void updateOtherPlayers(ArrayList<PlayerData> playerDataList){
-        ArrayList<Object3d> otherPlayers = new ArrayList<>();
+        ArrayList<Mesh> otherPlayers = new ArrayList<>();
         for (PlayerData playerData : playerDataList) {
             if(playerData != null) {
-                Sphere sphere = new Sphere(0.5, playerData.getPosition(), playerData.getOrientation(),20,20);
-                sphere.getMesh().setColor(Color.green);
-                otherPlayers.add(sphere);
+                Mesh playerMesh = new CameraMesh(playerData.getPosition(), playerData.getOrientation());
+                playerMesh.setColor(Color.green);
+                otherPlayers.add(playerMesh);
             }
         }
             MultiPlayerWorld world = (MultiPlayerWorld) getWorld();

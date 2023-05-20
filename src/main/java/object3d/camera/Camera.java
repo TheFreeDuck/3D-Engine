@@ -31,7 +31,12 @@ public class Camera extends Object3d  {
         this.observer = observer;
         this.orientation = orientation;
         fov = 1;
-        updatePicturePlane();
+        try{
+            updatePicturePlane();
+        }catch (Exception e){
+
+        }
+
     }
     public void drawProjectedObjects(ArrayList<Mesh> meshes, Graphics g) {
         HashMap<Integer, ProjectedMesh> projectedMeshes = projectMeshes(meshes);

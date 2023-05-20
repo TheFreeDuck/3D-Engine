@@ -1,12 +1,12 @@
 package main.java.network.client;
 
+import main.java.game.GamePanel;
 import main.java.game.Objects;
 import main.java.game.World;
 import main.java.math.Point3d;
 import main.java.math.Vector;
+import main.java.mesh.Mesh;
 import main.java.mesh.Vertex;
-import main.java.game.GamePanel;
-import main.java.object3d.Object3d;
 import main.java.object3d.standardobjects.Cuboid;
 import main.java.object3d.standardobjects.Pyramid;
 import main.java.object3d.standardobjects.Sphere;
@@ -20,13 +20,13 @@ import java.util.ArrayList;
  */
 public class MultiPlayerWorld extends World {
 
-    private Objects otherPlayers;
+    private ArrayList<Mesh> otherPlayers;
     private Sphere sphere;
 
     public MultiPlayerWorld(GamePanel gamePanel) {
         super(gamePanel);
         objects = new Objects();
-        otherPlayers = new Objects();
+        otherPlayers = new ArrayList<>();
 
         objects.add(new Cuboid(new Vertex(2, 0, 0), 1, 1, 1));
 
@@ -60,7 +60,7 @@ public class MultiPlayerWorld extends World {
     public void draw(Graphics g) {
         try {
             player.getCamera().drawProjectedObjects(objects.meshes(), g);
-            player.getCamera().drawProjectedObjects(otherPlayers.meshes(),g);
+            player.getCamera().drawProjectedObjects(otherPlayers,g);
         }catch (Exception e ){
             e.getStackTrace();
         }
@@ -71,7 +71,7 @@ public class MultiPlayerWorld extends World {
     public void keyEvents() {
         player.keyEvents();
     }
-    public void setOtherPlayers(ArrayList<Object3d> otherPlayers) {
+    public void setOtherPlayers(ArrayList<Mesh> otherPlayers) {
         this.otherPlayers.clear();
         this.otherPlayers.addAll(otherPlayers);
     }
