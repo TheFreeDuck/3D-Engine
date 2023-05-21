@@ -42,7 +42,7 @@ public class Camera extends Object3d  {
         HashMap<Integer, ProjectedMesh> projectedMeshes = projectMeshes(meshes);
         for (int i = 0; i < projectedMeshes.size(); i++) {
             projectedMeshes.get(i).drawEdges(g);
-            projectedMeshes.get(i).drawVertices(g);
+            //projectedMeshes.get(i).drawVertices(g);
 
         }
 

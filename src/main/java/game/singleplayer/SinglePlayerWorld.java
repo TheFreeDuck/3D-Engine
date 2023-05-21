@@ -29,7 +29,10 @@ public class SinglePlayerWorld extends World {
 
         objects.add(new Torus(0.6,0.3,20,20,new Vertex(2.5,5.5,0.3)));
 
-        objects.add(new Torus(200,100,40,40,new Vertex(-350,80,0.3)));
+        Torus torus = new Torus(200,100,40,40,new Vertex(-350,80,0.3));
+        torus.setRotation(new Vector(0,0,0.04));
+
+        objects.add(torus);
 
         //objects.add(new Sphere(25, new Vertex(2.5,70 ,13),20,20));
 

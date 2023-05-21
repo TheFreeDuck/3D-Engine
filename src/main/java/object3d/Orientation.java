@@ -7,18 +7,15 @@ import java.io.Serializable;
 public class Orientation implements Serializable {
     private Vector forward;
     private Vector right;
-    private Vector up;
 
     public Orientation(Vector forward, Vector right) {
         this.forward = forward.unitVector();
         this.right = right.unitVector();
-        up = forward.crossProduct(right).unitVector();
     }
 
     public Orientation(Orientation other) {
         this.forward = other.forward;
         this.right = other.right;
-        this.up = other.up;
     }
 
     public static Orientation standard(){
@@ -35,13 +32,10 @@ public class Orientation implements Serializable {
     public synchronized void rotate(double angle,Vector vector) {
         right = right.unitVector();
         forward = forward.unitVector();
-        up = up.unitVector();
 
         right.rotateAroundVector(angle, vector);
-        up.rotateAroundVector(angle, vector);
         forward.rotateAroundVector(angle, vector);
 
-        up = up.unitVector();
         forward = forward.unitVector();
         right = right.unitVector();
     }
@@ -52,14 +46,14 @@ public class Orientation implements Serializable {
      * @return the transformed vector
      */
     public synchronized Vector multiply(Vector vector) {
-        double x = right.getX() * vector.getX() + up.getX() * vector.getY() + forward.getX() * vector.getZ();
-        double y = right.getY() * vector.getX() + up.getY() * vector.getY() + forward.getY() * vector.getZ();
-        double z = right.getZ() * vector.getX() + up.getZ() * vector.getY() + forward.getZ() * vector.getZ();
+        double x = right.getX() * vector.getX() + getUp().getX() * vector.getY() + forward.getX() * vector.getZ();
+        double y = right.getY() * vector.getX() + getUp().getY() * vector.getY() + forward.getY() * vector.getZ();
+        double z = right.getZ() * vector.getX() + getUp().getZ() * vector.getY() + forward.getZ() * vector.getZ();
         return new Vector(x, y, z);
     }
 
     public Vector getUp() {
-        return up.unitVector();
+        return forward.crossProduct(right).unitVector();
     }
 
     public Vector getForward() {
@@ -75,7 +69,7 @@ public class Orientation implements Serializable {
         return "Orientation{" +
                 "forward=" + forward +
                 ", right=" + right +
-                ", up=" + up +
+                ", up=" + getUp() +
                 '}';
     }
 }
