@@ -59,8 +59,8 @@ public class MultiPlayerWorld extends World {
 
     public void draw(Graphics g) {
         try {
-            player.getCamera().drawProjectedObjects(objects.meshes(), g);
-            player.getCamera().drawProjectedObjects(otherPlayers,g);
+            player.getCamera().drawProjectedMeshes(objects.meshes(), g);
+            player.getCamera().drawProjectedMeshes(otherPlayers,g);
         }catch (Exception e ){
             e.getStackTrace();
         }

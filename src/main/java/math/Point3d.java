@@ -57,9 +57,6 @@ public class Point3d implements Serializable {
      * Calculates the distance of the vector from the origin.
      * @return the distance from the origin.
      */
-    public double getDistanceFromOrigin() {
-        return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
-    }
 
     /**
      * finds distance between this point and another point

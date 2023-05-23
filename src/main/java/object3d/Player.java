@@ -68,10 +68,12 @@ public class Player extends Object3d {
             movementSpeed = 0.1;
         }
         if(Keys.ROTATE_UP.isPressed()){
-            orientation.rotate(-rotationSpeed,orientation.getRight());
+            //rotation distorting the projected image when rotating like this. dont know why :(
+            //orientation.rotate(-rotationSpeed,orientation.getRight());
         }
         if(Keys.ROTATE_DOWN.isPressed()){
-            orientation.rotate(rotationSpeed,orientation.getRight());
+            //rotation distorting the projected image when rotating like this. dont know why :(
+            //orientation.rotate(rotationSpeed,orientation.getRight());
         }
         if(Keys.ROTATE_RIGHT.isPressed()){
             orientation.rotate(rotationSpeed,orientation.getUp());
@@ -80,10 +82,12 @@ public class Player extends Object3d {
             orientation.rotate(-rotationSpeed,orientation.getUp());
         }
         if(Keys.ROLL_RIGHT.isPressed()){
-            orientation.rotate(-rotationSpeed,orientation.getForward());
+            //rotation distorting the projected image when rotating like this. dont know why :(
+            //orientation.rotate(-rotationSpeed,orientation.getForward());
         }
         if(Keys.ROLL_LEFT.isPressed()){
-            orientation.rotate(rotationSpeed,orientation.getForward());
+            //rotation distorting the projected image when rotating like this. dont know why :(
+            //orientation.rotate(rotationSpeed,orientation.getForward());
         }
     }
 

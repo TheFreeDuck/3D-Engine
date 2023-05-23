@@ -54,7 +54,7 @@ public class SinglePlayerWorld extends World {
     }
 
     public void draw(Graphics g) {
-        player.getCamera().drawProjectedObjects(objects.meshes(), g);
+        player.getCamera().drawProjectedMeshes(objects.meshes(), g);
         //player.camera2.drawProjectedObjects(objects.meshes(), g);
     }
 

@@ -28,6 +28,14 @@ public class PicturePlane extends Rectangle {
         h = p2.getDistanceFromPoint(p3);
         aspectRatio = w/h;
     }
+
+    /**
+     * Projects a point on the picture plane onto the game panel
+     * @param intersect Point to project
+     * @param orientation Orientation of the camera
+     * @param gamePanel GamePanel to project on
+     * @return Point2d on the game panel
+     */
     public Point2d project3dPointOnPanel(Point3d intersect, Orientation orientation, GamePanel gamePanel) {
         Vector hypotenuse = new Vector(intersect, this.getVtx1());
         double length = hypotenuse.scalar();

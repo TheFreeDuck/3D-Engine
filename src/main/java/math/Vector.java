@@ -105,56 +105,6 @@ public class Vector implements Serializable {
         return new Vector(-this.x, -this.y, -this.z);
     }
 
-
-
-    /*public void rotateAroundVector(double angle, Vector axis) {
-        // Compute the angle between the two vectors
-        double cosAngle = Math.cos(angle);
-        double sinAngle = Math.sin(angle);
-
-        // Compute the axis of rotation perpendicular to both vectors
-        Vector rotationAxis = axis.crossProduct(this).unitVector();
-
-        // Apply the Rodrigues' rotation formula
-        Vector rotatedVector = this.scale(cosAngle)
-                .add(rotationAxis.scale(sinAngle).crossProduct(this))
-                .add(rotationAxis.scale(rotationAxis.dotProduct(this) * (1 - cosAngle)));
-
-        // Update the vector components
-        this.x = rotatedVector.x;
-        this.y = rotatedVector.y;
-        this.z = rotatedVector.z;
-    }*/
-
-
-
-   /* public void rotateAroundVector(double angle, Vector axis) {
-        // Normalize the axis vector
-        axis.unitVector();
-
-        // Calculate the sine and cosine of the angle
-        double sinAngle = Math.sin(angle);
-        double cosAngle = Math.cos(angle);
-
-        // Calculate the components of the rotated vector
-        double xPrime = x * (cosAngle + (1 - cosAngle) * axis.x * axis.x)
-                + y * ((1 - cosAngle) * axis.x * axis.y - sinAngle * axis.z)
-                + z * ((1 - cosAngle) * axis.x * axis.z + sinAngle * axis.y);
-
-        double yPrime = x * ((1 - cosAngle) * axis.x * axis.y + sinAngle * axis.z)
-                + y * (cosAngle + (1 - cosAngle) * axis.y * axis.y)
-                + z * ((1 - cosAngle) * axis.y * axis.z - sinAngle * axis.x);
-
-        double zPrime = x * ((1 - cosAngle) * axis.x * axis.z - sinAngle * axis.y)
-                + y * ((1 - cosAngle) * axis.y * axis.z + sinAngle * axis.x)
-                + z * (cosAngle + (1 - cosAngle) * axis.z * axis.z);
-
-        // Update the vector with the rotated components
-        x = xPrime;
-        y = yPrime;
-        z = zPrime;
-    }*/
-
     public Vector rotateAroundVector(double angle, Vector axis) {
         // Calculate the components of the vector being rotated
         double u1 = x;
@@ -191,29 +141,6 @@ public class Vector implements Serializable {
         z = newZ;
         return this;
     }
-
-
-
-
-
-
-
-    /*public void rotateAroundVector(double angle, Vector axis) {
-        // Convert the rotation axis to a unit quaternion
-        axis.unitVector();
-        Quaternion rotationQuaternion = new Quaternion(axis.x * Math.sin(angle / 2), axis.y * Math.sin(angle / 2), axis.z * Math.sin(angle / 2), Math.cos(angle / 2));
-
-        // Convert the vector to a quaternion
-        Quaternion vectorQuaternion = new Quaternion(x, y, z, 0);
-
-        // Rotate the vector quaternion by the rotation quaternion
-        Quaternion resultQuaternion = rotationQuaternion.mul(vectorQuaternion).mul(rotationQuaternion.conjugate());
-
-        // Extract the rotated components from the resulting quaternion
-        x = resultQuaternion.x;
-        y = resultQuaternion.y;
-        z = resultQuaternion.z;
-    }*/
 
     public Vector scale(double value) {
         return new Vector(x * value, y * value, z * value);

@@ -38,7 +38,13 @@ public class Camera extends Object3d  {
         }
 
     }
-    public void drawProjectedObjects(ArrayList<Mesh> meshes, Graphics g) {
+
+    /**
+     * draws the projected meshes
+     * @param meshes the meshes to be drawn
+     * @param g the graphics object
+     */
+    public void drawProjectedMeshes(ArrayList<Mesh> meshes, Graphics g) {
         HashMap<Integer, ProjectedMesh> projectedMeshes = projectMeshes(meshes);
         for (int i = 0; i < projectedMeshes.size(); i++) {
             projectedMeshes.get(i).drawEdges(g);
@@ -47,6 +53,12 @@ public class Camera extends Object3d  {
         }
 
     }
+
+    /**
+     * projects the meshes
+     * @param meshes the meshes to be projected
+     * @return a hashmap of the projected meshes
+     */
     private HashMap<Integer, ProjectedMesh> projectMeshes(ArrayList<Mesh> meshes) {
             HashMap<Integer, ProjectedMesh> projectedMeshes = new HashMap<>();
         for (int i = 0; i < meshes.size(); i++) {
@@ -54,6 +66,12 @@ public class Camera extends Object3d  {
         }
         return projectedMeshes;
     }
+
+    /**
+     * projects the mesh
+     * @param mesh the mesh to be projected
+     * @return the projected mesh
+     */
     private ProjectedMesh projectMesh(Mesh mesh) {
         ProjectedMesh projectedMesh = new ProjectedMesh(mesh);
 
@@ -95,7 +113,11 @@ public class Camera extends Object3d  {
         return projectedMesh;
     }
 
-
+    /**
+     * projects the vertices in front of the camera
+     * @param vertex the vertex to be projected
+     * @return the projected point
+     */
     private Point2d projectVertexInFrontOfCamera(Vertex vertex) {
         Ray ray = new Ray(observer, vertex);
         Point3d intersect = ray.intersectWithPlane(picturePlane);
@@ -104,7 +126,6 @@ public class Camera extends Object3d  {
         }
         return null;
     }
-
     private Point2d clippingPoint(Vertex vertex, Vertex connectedVertex) {
         Ray ray = new Ray(vertex, connectedVertex);
         Point3d intersect = ray.intersectWithPlane(picturePlane);
@@ -126,7 +147,7 @@ public class Camera extends Object3d  {
 
     }
 
-    public void updatePicturePlane() {
+    private void updatePicturePlane() {
         Vector forward = orientation.getForward();
         Vector right = orientation.getRight();
         Vector up = orientation.getUp();
