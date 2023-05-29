@@ -64,7 +64,7 @@ public class MenuPanel extends JPanel {
 
         gbc.gridy = 0;
         // Add the title text
-        JLabel title = new JLabel("BINGBONG");
+        JLabel title = new JLabel("DDD Engine");
         title.setFont(new Font("arial", Font.BOLD, 24));
         title.setForeground(Color.white);
         add(title, gbc);
