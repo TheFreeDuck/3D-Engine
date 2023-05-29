@@ -1,10 +1,16 @@
 package main.java.mesh;
 
 import main.java.math.Point3d;
+import main.java.math.Vector;
+
 public class Vertex extends Point3d  {
 
     public Vertex(double x, double y, double z) {
         super(x, y, z);
+    }
+
+    public Vertex(Vector vector) {
+        super(vector.getX(), vector.getY(), vector.getY());
     }
 
     public Vertex(Point3d point) {

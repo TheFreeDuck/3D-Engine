@@ -21,7 +21,6 @@ import java.util.ArrayList;
 public class MultiPlayerWorld extends World {
 
     private ArrayList<Mesh> otherPlayers;
-    private Sphere sphere;
 
     public MultiPlayerWorld(GamePanel gamePanel) {
         super(gamePanel);
@@ -36,23 +35,25 @@ public class MultiPlayerWorld extends World {
 
         objects.add(new Torus(0.6,0.3,20,20,new Vertex(2.5,5.5,0.3)));
 
-        objects.add(new Torus(200,100,40,40,new Vertex(-350,80,0.3)));
-
-        objects.add(new Sphere(25, new Vertex(2.5,70 ,13),20,20));
 
         objects.add(new Cuboid(new Vertex(0, 10, 0), 21, 21, 21));
         for (int i = 0; i < 100; i++) {
             objects.add(new Cuboid(new Point3d(Math.max(2, Math.random() * 20), Math.random() * 20+10, Math.random() * 20), 1, 1, 1));
         }
 
-        sphere = new Sphere(25, new Vertex(2.5, 70, 13), 20, 20);
+        Torus torus = new Torus(200,100,40,40,new Vertex(-350,80,0.3));
+        torus.setRotation(new Vector(0,0,0.04));
+
+        objects.add(torus);
+
+        Sphere sphere = new Sphere(25, new Vertex(2.5,70 ,13),20,20);
         objects.add(sphere);
+        sphere.setRotation(new Vector(0.02,0.05,0.08));
 
     }
 
     @Override
     public void update() {
-        sphere.rotate(0.01,new Vector(0.5,0.2,1));
         objects.update();
         player.update();
     }

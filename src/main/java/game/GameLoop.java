@@ -1,14 +1,11 @@
 package main.java.game;
 
-import java.awt.*;
-
-
 /**
  * @author Fredrik
  */
 public class GameLoop extends Thread  {
 
-    int maxFps = 60;
+    int ups = 60;
     int currentFps;
     final int SECOND_IN_NANO = 1000000000;
     private boolean running = false;
@@ -32,7 +29,7 @@ public class GameLoop extends Thread  {
         long lastTime = System.nanoTime();
         long lastFpsCheck = System.nanoTime();
         long currentTime;
-        int interval = SECOND_IN_NANO/maxFps;
+        int interval = SECOND_IN_NANO/ ups;
         int fps = 0;
         while (running) {
             currentTime = System.nanoTime();
@@ -54,24 +51,7 @@ public class GameLoop extends Thread  {
                 lastFpsCheck = System.nanoTime();
             }
 
-            //https://gafferongames.com/post/fix_your_timestep/
         }
-    }
-
-    public void draw(Graphics g) {
-        world.draw(g);
-        drawFps(g);
-    }
-
-    /**
-     * write how many fps the game loop is getting
-     * @param g Graphics
-     */
-    private void drawFps(Graphics g) {
-        Font fpsFont = new Font("arial", Font.PLAIN, 15);
-        g.setFont(fpsFont);
-        g.setColor(Color.green);
-        g.drawString("fps: " + currentFps, 3, 15);
     }
 
     /**

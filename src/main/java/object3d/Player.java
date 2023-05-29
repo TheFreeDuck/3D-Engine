@@ -14,12 +14,10 @@ public class Player extends Object3d {
     private double rotationSpeed;
     private Camera camera;
 
-    public Camera camera2;
-
     public Player(Point3d position, Orientation orientation, GamePanel gamePanel) {
         super(position, orientation);
         camera = new Camera(position, orientation, gamePanel);
-        camera2 = new Camera(position.addDistanceAlongVector(orientation.getForward(), -2), Orientation.standard(), gamePanel);
+        //camera2 = new Camera(position.addDistanceAlongVector(orientation.getForward(), -2), Orientation.standard(), gamePanel);
         movement = new Vector(0, 0, 0);
         movementSpeed = 0;
         rotationSpeed = 0.01;
@@ -32,7 +30,7 @@ public class Player extends Object3d {
         camera.setObserver(position);
         camera.setOrientation(orientation);
         camera.update();
-        camera2.update();
+        //camera2.update();
         updateMesh();
     }
 

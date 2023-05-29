@@ -12,4 +12,15 @@ public class Triangle  {
         this.vertex3 = vertex3;
     }
 
+    public int getVertex1() {
+        return vertex1;
+    }
+
+    public int getVertex2() {
+        return vertex2;
+    }
+
+    public int getVertex3() {
+        return vertex3;
+    }
 }

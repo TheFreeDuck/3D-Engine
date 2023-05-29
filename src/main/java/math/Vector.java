@@ -24,6 +24,12 @@ public class Vector implements Serializable {
         this.z = z;
     }
 
+    public Vector(Point3d point3d) {
+        this.x = point3d.getX();
+        this.y = point3d.getY();
+        this.z = point3d.getZ();
+    }
+
     /**
      * Creates vector from two points
      * @param p1 Point 1
@@ -105,7 +111,12 @@ public class Vector implements Serializable {
         return new Vector(-this.x, -this.y, -this.z);
     }
 
-    public Vector rotateAroundVector(double angle, Vector axis) {
+    /**
+     * rotates the vector around another vector
+     * @param angle angle of rotation in radians
+     * @param axis the vector to rotate around
+     */
+    public void rotateAroundVector(double angle, Vector axis) {
         // Calculate the components of the vector being rotated
         double u1 = x;
         double u2 = y;
@@ -139,7 +150,6 @@ public class Vector implements Serializable {
         x = newX;
         y = newY;
         z = newZ;
-        return this;
     }
 
     public Vector scale(double value) {

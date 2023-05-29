@@ -1,6 +1,7 @@
-package main.java.keyinput;
+package main.java.app;
 
-import main.java.app.Frame;
+import main.java.keyinput.KeyHandler;
+import main.java.keyinput.Keys;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,7 +25,7 @@ public class KeyBindingsPanel extends JPanel {
                 // create the bindings file and copy the default bindings
                 InputStream defaultBindingsStream = getClass().getClassLoader().getResourceAsStream("default_bindings.txt");
                 Files.copy(defaultBindingsStream, bindingsFile.toPath());
-                JOptionPane.showMessageDialog(null,"Could not load your keybindings. The default ones will be used.");
+                JOptionPane.showMessageDialog(null,"Could not find your keybindings. The default ones will be used.");
             }
             keyHandler = new KeyHandler(new FileInputStream(bindingsFile));
         } catch (IOException e) {

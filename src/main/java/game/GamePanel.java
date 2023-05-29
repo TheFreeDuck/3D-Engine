@@ -26,7 +26,7 @@ public class GamePanel extends JPanel {
                 // create the bindings file and copy the default bindings
                 InputStream defaultBindingsStream = getClass().getClassLoader().getResourceAsStream("default_bindings.txt");
                 Files.copy(defaultBindingsStream, bindingsFile.toPath());
-                JOptionPane.showMessageDialog(null,"Could not load your keybindings. The default ones will be used.");
+                JOptionPane.showMessageDialog(null,"Could not find your keybindings. The default ones will be used.");
             }
             keyHandler = new KeyHandler(new FileInputStream(bindingsFile));
         } catch (IOException e) {

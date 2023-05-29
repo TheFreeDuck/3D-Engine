@@ -5,7 +5,7 @@ import main.java.game.Game;
 import main.java.game.GamePanel;
 import main.java.game.World;
 import main.java.mesh.Mesh;
-import main.java.mesh.standardmeshes.CameraMesh;
+import main.java.mesh.meshloader.ObjMesh;
 import main.java.network.server.PlayerData;
 import main.java.object3d.Orientation;
 
@@ -29,7 +29,7 @@ public class MultiPlayerGame extends Game{
         ArrayList<Mesh> otherPlayers = new ArrayList<>();
         for (PlayerData playerData : playerDataList) {
             if(playerData != null) {
-                Mesh playerMesh = new CameraMesh(playerData.getPosition(), playerData.getOrientation());
+                Mesh playerMesh = new ObjMesh(playerData.getPosition(), playerData.getOrientation(),getClass().getClassLoader().getResourceAsStream("SuzanMonkey.obj"));
                 playerMesh.setColor(Color.green);
                 otherPlayers.add(playerMesh);
             }

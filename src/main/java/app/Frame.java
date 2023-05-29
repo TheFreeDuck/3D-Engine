@@ -83,7 +83,7 @@ public class Frame extends JFrame {
             e.printStackTrace();
         }
         SwingUtilities.updateComponentTreeUI(this);
-        setContent(new MenuGUI(this));
+        setContent(new MenuPanel(this));
     }
 
     public boolean isFullscreen() {

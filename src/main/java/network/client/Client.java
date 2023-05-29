@@ -26,7 +26,7 @@ public class Client {
 
             System.out.println("Connected to server");
             new Thread(() -> {
-                JOptionPane.showMessageDialog(null, "You have successfully connected to the 日本語ボス server \n If you are not a 日本語ボス disconnect immediately");
+                JOptionPane.showMessageDialog(null, "You have successfully connected to the server");
             }).start();
 
         } catch (IOException e) {

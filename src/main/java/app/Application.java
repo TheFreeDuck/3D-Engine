@@ -7,11 +7,14 @@ public class Application {
 
     public Application() {
         FlatDarkLaf.setup();
-        frame = new Frame();
     }
 
+    /**
+     * stats the application
+     */
     public void run(){
-        MenuGUI menu = new MenuGUI(frame);
+        frame = new Frame();
+        MenuPanel menu = new MenuPanel(frame);
         frame.setContent(menu);
         frame.setVisible(true);
     }

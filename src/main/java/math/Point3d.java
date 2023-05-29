@@ -28,6 +28,12 @@ public class Point3d implements Serializable {
         this.z = z;
     }
 
+    public Point3d(Vector v) {
+        this.x = v.getX();
+        this.y = v.getY();
+        this.z = v.getZ();
+    }
+
     public Point3d addPoint(double x, double y, double z) {
         return new Point3d(this.x + x, this.y + y, this.z + z);
     }
@@ -52,11 +58,6 @@ public class Point3d implements Serializable {
         v = new Vector(v.getX()*distance,v.getY()*distance,v.getZ()*distance);
         return new Point3d(this.x + v.getX(), this.y + v.getY(), this.z + v.getZ());
     }
-
-    /**
-     * Calculates the distance of the vector from the origin.
-     * @return the distance from the origin.
-     */
 
     /**
      * finds distance between this point and another point

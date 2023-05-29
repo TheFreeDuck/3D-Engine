@@ -3,7 +3,6 @@ package main.java.app;
 import main.java.game.Game;
 import main.java.game.World;
 import main.java.game.singleplayer.SinglePlayerWorld;
-import main.java.keyinput.KeyBindingsPanel;
 import main.java.network.client.Client;
 import main.java.network.client.ClientInput;
 import main.java.network.client.MultiPlayerGame;
@@ -14,12 +13,12 @@ import main.java.game.GamePanel;
 import javax.swing.*;
 import java.awt.*;
 
-public class MenuGUI extends JPanel {
+public class MenuPanel extends JPanel {
 
     private JButton singlePlayerButton, multiPlayerButton, createServerButton, keyBindingsButton;
     private Frame frame;
 
-    public MenuGUI(Frame frame) {
+    public MenuPanel(Frame frame) {
         this.frame = frame;
         this.setBackground(Color.black);
         this.setPreferredSize(new Dimension(500, 500));

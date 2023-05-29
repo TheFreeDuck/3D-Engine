@@ -6,6 +6,8 @@ import main.java.game.World;
 import main.java.math.Point3d;
 import main.java.math.Vector;
 import main.java.mesh.Vertex;
+import main.java.object3d.Orientation;
+import main.java.object3d.objectloaders.ObjObject;
 import main.java.object3d.standardobjects.Cuboid;
 import main.java.object3d.standardobjects.Pyramid;
 import main.java.object3d.standardobjects.Sphere;
@@ -45,6 +47,10 @@ public class SinglePlayerWorld extends World {
         Sphere sphere = new Sphere(25, new Vertex(2.5,70 ,13),20,20);
         objects.add(sphere);
         sphere.setRotation(new Vector(0.02,0.05,0.08));
+
+        ObjObject monk = new ObjObject(new Vertex(3,-2,0),new Orientation(new Vector(-1,0,0),new Vector(0,-1,0)),"SuzanMonkey.obj");
+        objects.add(monk);
+        //monk.setRotation(new Vector(0.02,0.05,0.08));
     }
 
     @Override
