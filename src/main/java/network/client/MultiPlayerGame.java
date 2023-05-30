@@ -5,7 +5,7 @@ import main.java.game.Game;
 import main.java.game.GamePanel;
 import main.java.game.World;
 import main.java.mesh.Mesh;
-import main.java.mesh.meshloader.ObjMesh;
+import main.java.mesh.meshloaders.ObjMesh;
 import main.java.network.server.PlayerData;
 import main.java.object3d.Orientation;
 

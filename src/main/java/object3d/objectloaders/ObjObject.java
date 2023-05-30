@@ -1,7 +1,7 @@
 package main.java.object3d.objectloaders;
 
 import main.java.math.Point3d;
-import main.java.mesh.meshloader.ObjMesh;
+import main.java.mesh.meshloaders.ObjMesh;
 import main.java.object3d.Object3d;
 import main.java.object3d.Orientation;
 

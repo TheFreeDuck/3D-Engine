@@ -68,6 +68,10 @@ public class Point3d implements Serializable {
         return Math.sqrt(Math.pow(p.x - x, 2) + Math.pow(p.y - y, 2) + Math.pow(p.z - z, 2));
     }
 
+    public Point3d multiply(double d){
+        return new Point3d(x*d,y*d,z*d);
+    }
+
     /**
      * Checks if this point is in front of another point along a given vector
      * @param p the other point it is in front of or behind
