@@ -86,7 +86,6 @@ public class Camera extends Object3d  {
             if (vertex1InFront && vertex2InFront) {
                 projectedMesh.putProjectedPoint(edge.getVertex1(), projectVertexInFrontOfCamera(vertex1));
                 projectedMesh.putProjectedPoint(edge.getVertex2(), projectVertexInFrontOfCamera(vertex2));
-
                 ProjectedEdge projectedEdge = new ProjectedEdge();
                 projectedEdge.setP1(projectedMesh.getProjectedPoints().get(edge.getVertex1()));
                 projectedEdge.setP2(projectedMesh.getProjectedPoints().get(edge.getVertex2()));

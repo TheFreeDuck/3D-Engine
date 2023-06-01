@@ -51,6 +51,8 @@ public class SinglePlayerWorld extends World {
         ObjObject monk = new ObjObject(new Vertex(3,-2,0),new Orientation(new Vector(-1,0,0),new Vector(0,-1,0)),"SuzanMonkey.obj");
         objects.add(monk);
         //monk.setRotation(new Vector(0.02,0.05,0.08));
+
+        //objects.add(new ObjObject(new Vertex(10,-30,0),new Orientation(new Vector(-1,0,0),new Vector(0,0,-1)),"glider.obj"));
     }
 
     @Override
