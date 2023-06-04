@@ -7,7 +7,7 @@ import main.java.mesh.Mesh;
 import main.java.mesh.Triangle;
 import main.java.object3d.Orientation;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class SphereMesh extends Mesh {
     double radius;
@@ -38,7 +38,7 @@ public class SphereMesh extends Mesh {
         }
 
         // Create edges
-        edges = new HashMap<>();
+        edges = new ArrayList<>();
         int count = 0;
         for (int i = 0; i < nLongitudeSegments; i++) {
             for (int j = 0; j < nLatitudeSegments; j++) {
@@ -47,15 +47,15 @@ public class SphereMesh extends Mesh {
                 int v3 = j + 1 + (nLatitudeSegments + 1) * (i + 1);
                 int v4 = j + 1 + (nLatitudeSegments + 1) * i;
 
-                edges.put(count++, new Edge(v1, v2));
-                edges.put(count++, new Edge(v2, v3));
-                edges.put(count++, new Edge(v3, v4));
-                edges.put(count++, new Edge(v4, v1));
+                edges.add(new Edge(v1, v2));
+                edges.add(new Edge(v2, v3));
+                edges.add(new Edge(v3, v4));
+                edges.add(new Edge(v4, v1));
             }
         }
 
         // Create triangles
-        triangles = new HashMap<>();
+        triangles = new ArrayList<>();
         count = 0;
         for (int i = 0; i < nLongitudeSegments; i++) {
             for (int j = 0; j < nLatitudeSegments; j++) {
@@ -64,8 +64,8 @@ public class SphereMesh extends Mesh {
                 int v3 = j + 1 + (nLatitudeSegments + 1) * (i + 1);
                 int v4 = j + 1 + (nLatitudeSegments + 1) * i;
 
-                triangles.put(count++, new Triangle(v1, v2, v3));
-                triangles.put(count++, new Triangle(v1, v3, v4));
+                triangles.add(new Triangle(v1, v2, v3));
+                triangles.add(new Triangle(v1, v3, v4));
             }
         }
     }
@@ -96,7 +96,7 @@ public class SphereMesh extends Mesh {
         }
 
         // Create edges
-        edges = new HashMap<>();
+        edges = new ArrayList<>();
         int count = 0;
         for (int i = 0; i < nLongitudeSegments; i++) {
             for (int j = 0; j < nLatitudeSegments; j++) {
@@ -105,15 +105,15 @@ public class SphereMesh extends Mesh {
                 int v3 = j + 1 + (nLatitudeSegments + 1) * (i + 1);
                 int v4 = j + 1 + (nLatitudeSegments + 1) * i;
 
-                edges.put(count++, new Edge(v1, v2));
-                edges.put(count++, new Edge(v2, v3));
-                edges.put(count++, new Edge(v3, v4));
-                edges.put(count++, new Edge(v4, v1));
+                edges.add(new Edge(v1, v2));
+                edges.add(new Edge(v2, v3));
+                edges.add(new Edge(v3, v4));
+                edges.add(new Edge(v4, v1));
             }
         }
 
         // Create triangles
-        triangles = new HashMap<>();
+        triangles = new ArrayList<>();
         count = 0;
         for (int i = 0; i < nLongitudeSegments; i++) {
             for (int j = 0; j < nLatitudeSegments; j++) {
@@ -122,8 +122,8 @@ public class SphereMesh extends Mesh {
                 int v3 = j + 1 + (nLatitudeSegments + 1) * (i + 1);
                 int v4 = j + 1 + (nLatitudeSegments + 1) * i;
 
-                triangles.put(count++, new Triangle(v1, v2, v3));
-                triangles.put(count++, new Triangle(v1, v3, v4));
+                triangles.add(new Triangle(v1, v2, v3));
+                triangles.add(new Triangle(v1, v3, v4));
             }
         }
     }

@@ -6,12 +6,11 @@ import main.java.object3d.Orientation;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public abstract class Mesh  {
     protected ArrayList<Point3d> vertices;
-    protected HashMap<Integer, Edge> edges;
-    protected HashMap<Integer, Triangle> triangles;
+    protected ArrayList<Edge> edges;
+    protected ArrayList<Triangle> triangles;
 
     protected Point3d origin;
 
@@ -23,8 +22,8 @@ public abstract class Mesh  {
         this.orientation = Orientation.standard();
         this.origin = new Point3d(10,0,0);
         vertices = new ArrayList<>();
-        edges = new HashMap<>();
-        triangles = new HashMap<>();
+        edges = new ArrayList<>();
+        triangles = new ArrayList<>();
 
         color = Color.white;
     }
@@ -63,22 +62,6 @@ public abstract class Mesh  {
 
     public void setVertices(ArrayList<Point3d> vertices) {
         this.vertices = vertices;
-    }
-
-    public HashMap<Integer, Edge> getEdges() {
-        return edges;
-    }
-
-    public void setEdges(HashMap<Integer, Edge> edges) {
-        this.edges = edges;
-    }
-
-    public HashMap<Integer, Triangle> getTriangles() {
-        return triangles;
-    }
-
-    public void setFaces(HashMap<Integer, Triangle> triangles) {
-        this.triangles = triangles;
     }
 
     public void setPoint3d(int i, Point3d Point3d) {

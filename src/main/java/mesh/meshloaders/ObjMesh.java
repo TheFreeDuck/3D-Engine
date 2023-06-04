@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class ObjMesh extends Mesh {
@@ -62,25 +61,25 @@ public class ObjMesh extends Mesh {
         this.vertices.addAll(vertices);
 
         // Create edges
-        edges = new HashMap<>();
+        edges = new ArrayList<>();
         int count = 0;
         for (int[] face : faces) {
             int v1 = face[0];
             int v2 = face[1];
             int v3 = face[2];
-            edges.put(count++, new Edge(v1, v2));
-            edges.put(count++, new Edge(v2, v3));
-            edges.put(count++, new Edge(v3, v1));
+            edges.add(new Edge(v1, v2));
+            edges.add(new Edge(v2, v3));
+            edges.add(new Edge(v3, v1));
         }
 
         // Create triangles
-        triangles = new HashMap<>();
+        triangles = new ArrayList<>();
         count = 0;
         for (int[] face : faces) {
             int v1 = face[0];
             int v2 = face[1];
             int v3 = face[2];
-            triangles.put(count++, new Triangle(v1, v2, v3));
+            triangles.add(new Triangle(v1, v2, v3));
         }
     }
 
@@ -101,25 +100,25 @@ public class ObjMesh extends Mesh {
         this.vertices.addAll(vertices);
 
         // Create edges
-        edges = new HashMap<>();
+        edges = new ArrayList<>();
         int count = 0;
         for (int[] face : faces) {
             int v1 = face[0];
             int v2 = face[1];
             int v3 = face[2];
-            edges.put(count++, new Edge(v1, v2));
-            edges.put(count++, new Edge(v2, v3));
-            edges.put(count++, new Edge(v3, v1));
+            edges.add(new Edge(v1, v2));
+            edges.add(new Edge(v2, v3));
+            edges.add(new Edge(v3, v1));
         }
 
         // Create triangles
-        triangles = new HashMap<>();
+        triangles = new ArrayList<>();
         count = 0;
         for (int[] face : faces) {
             int v1 = face[0];
             int v2 = face[1];
             int v3 = face[2];
-            triangles.put(count++, new Triangle(v1, v2, v3));
+            triangles.add(new Triangle(v1, v2, v3));
         }
     }
 
