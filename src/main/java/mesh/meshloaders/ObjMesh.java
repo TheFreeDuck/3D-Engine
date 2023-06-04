@@ -5,7 +5,6 @@ import main.java.math.Vector;
 import main.java.mesh.Edge;
 import main.java.mesh.Mesh;
 import main.java.mesh.Triangle;
-import main.java.mesh.Vertex;
 import main.java.object3d.Orientation;
 
 import java.io.BufferedReader;
@@ -18,11 +17,14 @@ import java.util.List;
 
 public class ObjMesh extends Mesh {
 
-    public ObjMesh(Point3d origin, Orientation orientation, InputStream inputStream) {
-        super(origin, orientation);
+    List<Point3d> objVertices;
+    List<int[]> faces;
 
-        List<Point3d> objVertices = new ArrayList<>();
-        List<int[]> faces = new ArrayList<>();
+    public ObjMesh(InputStream inputStream) {
+        super();
+
+        objVertices = new ArrayList<>();
+        faces = new ArrayList<>();
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             String line;
@@ -32,8 +34,8 @@ public class ObjMesh extends Mesh {
                     double x = Double.parseDouble(parts[1]);
                     double y = Double.parseDouble(parts[2]);
                     double z = Double.parseDouble(parts[3]);
-                    Point3d vertex = new Point3d(x, y, z);
-                    objVertices.add(vertex);
+                    Point3d Point3d = new Point3d(x, y, z);
+                    objVertices.add(Point3d);
                 } else if (parts[0].equals("f")) {
                     int[] face = new int[parts.length - 1];
                     for (int i = 1; i < parts.length; i++) {
@@ -49,11 +51,11 @@ public class ObjMesh extends Mesh {
         }
 
         // Create vertices
-        List<Vertex> vertices = new ArrayList<>();
-        for (Point3d vertex : objVertices) {
-            // Apply transformation to each vertex
-            Point3d transformedVertex = orientation.multiply(new Vector(vertex)).add(origin);
-            vertices.add(new Vertex(transformedVertex));
+        List<Point3d> vertices = new ArrayList<>();
+        for (Point3d Point3d : objVertices) {
+            // Apply transformation to each Point3d
+            Point3d transformedPoint3d = orientation.multiplyVector(new Vector(Point3d)).add(origin);
+            vertices.add(transformedPoint3d);
         }
 
         // Add vertices to the mesh
@@ -82,42 +84,17 @@ public class ObjMesh extends Mesh {
         }
     }
 
-    public ObjMesh(Point3d origin, Orientation orientation, InputStream inputStream, double globalScale) {
-        super(origin, orientation);
+    public ObjMesh(Point3d position,Orientation orientation,List<Point3d> objVertices,List<int[]> faces) {
+        super();
+        this.origin = position;
+        this.orientation = orientation;
+        this.objVertices = objVertices;
+        this.faces  = faces;
 
-        List<Point3d> objVertices = new ArrayList<>();
-        List<int[]> faces = new ArrayList<>();
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.trim().split("\\s+");
-                if (parts[0].equals("v")) {
-                    double x = Double.parseDouble(parts[1]) * globalScale;
-                    double y = Double.parseDouble(parts[2]) * globalScale;
-                    double z = Double.parseDouble(parts[3]) * globalScale;
-                    Point3d vertex = new Point3d(x, y, z);
-                    objVertices.add(vertex);
-                } else if (parts[0].equals("f")) {
-                    int[] face = new int[parts.length - 1];
-                    for (int i = 1; i < parts.length; i++) {
-                        String[] indices = parts[i].split("/");
-                        face[i - 1] = Integer.parseInt(indices[0]) - 1; // Subtract 1 to convert to 0-based index
-                    }
-                    faces.add(face);
-                }
-            }
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // Create vertices
-        List<Vertex> vertices = new ArrayList<>();
-        for (Point3d vertex : objVertices) {
-            // Apply transformation to each vertex
-            Point3d transformedVertex = orientation.multiply(new Vector(vertex)).add(origin);
-            vertices.add(new Vertex(transformedVertex));
+        for (Point3d Point3d : objVertices) {
+            // Apply transformation to each Point3d
+            Point3d transformedPoint3d = orientation.multiplyVector(new Vector(Point3d)).add(origin);
+            vertices.add(transformedPoint3d);
         }
 
         // Add vertices to the mesh
@@ -144,5 +121,10 @@ public class ObjMesh extends Mesh {
             int v3 = face[2];
             triangles.put(count++, new Triangle(v1, v2, v3));
         }
+    }
+
+    @Override
+    public Mesh update(Point3d position, Orientation orientation) {
+        return new ObjMesh(position,orientation,objVertices,faces);
     }
 }

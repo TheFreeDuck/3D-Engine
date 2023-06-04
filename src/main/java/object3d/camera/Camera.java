@@ -7,7 +7,6 @@ import main.java.math.Ray;
 import main.java.math.Vector;
 import main.java.mesh.Edge;
 import main.java.mesh.Mesh;
-import main.java.mesh.Vertex;
 import main.java.object3d.Object3d;
 import main.java.object3d.Orientation;
 
@@ -18,7 +17,7 @@ import java.util.HashMap;
 /**
  * @author Fredrik
  */
-public class Camera extends Object3d  {
+public class Camera extends Object3d {
 
     private Point3d observer;
     private PicturePlane picturePlane;
@@ -26,10 +25,10 @@ public class Camera extends Object3d  {
     private GamePanel gamePanel;
 
     public Camera(Point3d observer, Orientation orientation, GamePanel gamePanel) {
-        super(observer, orientation);
+        super(observer, orientation,null);
         this.gamePanel = gamePanel;
         this.observer = observer;
-        this.orientation = orientation;
+        setOrientation(orientation);
         fov = 1;
         try{
             updatePicturePlane();
@@ -77,34 +76,34 @@ public class Camera extends Object3d  {
 
         for (int edgeIndex : mesh.getEdges().keySet()) {
             Edge edge = mesh.getEdges().get(edgeIndex);
-            Vertex vertex1 = mesh.getVertices().get(edge.getVertex1());
-            Vertex vertex2 = mesh. getVertices().get(edge.getVertex2());
+            Point3d Point3d1 = mesh.getVertices().get(edge.getPoint3d1());
+            Point3d Point3d2 = mesh. getVertices().get(edge.getPoint3d2());
 
-            boolean vertex1InFront = vertex1.isInFrontOf(observer.addDistanceAlongVector(orientation.getForward(),1), orientation.getForward());
-            boolean vertex2InFront = vertex2.isInFrontOf(observer.addDistanceAlongVector(orientation.getForward(),1), orientation.getForward());
+            boolean Point3d1InFront = Point3d1.isInFrontOf(observer.addDistanceAlongVector(getOrientation().getForward(),1), getOrientation().getForward());
+            boolean Point3d2InFront = Point3d2.isInFrontOf(observer.addDistanceAlongVector(getOrientation().getForward(),1), getOrientation().getForward());
 
-            if (vertex1InFront && vertex2InFront) {
-                projectedMesh.putProjectedPoint(edge.getVertex1(), projectVertexInFrontOfCamera(vertex1));
-                projectedMesh.putProjectedPoint(edge.getVertex2(), projectVertexInFrontOfCamera(vertex2));
+            if (Point3d1InFront && Point3d2InFront) {
+                projectedMesh.putProjectedPoint(edge.getPoint3d1(), projectPoint3dInFrontOfCamera(Point3d1));
+                projectedMesh.putProjectedPoint(edge.getPoint3d2(), projectPoint3dInFrontOfCamera(Point3d2));
                 ProjectedEdge projectedEdge = new ProjectedEdge();
-                projectedEdge.setP1(projectedMesh.getProjectedPoints().get(edge.getVertex1()));
-                projectedEdge.setP2(projectedMesh.getProjectedPoints().get(edge.getVertex2()));
+                projectedEdge.setP1(projectedMesh.getProjectedPoints().get(edge.getPoint3d1()));
+                projectedEdge.setP2(projectedMesh.getProjectedPoints().get(edge.getPoint3d2()));
                 projectedMesh.putProjectEdge(edgeIndex, projectedEdge);
-            } else if (vertex1InFront) {
-                projectedMesh.putProjectedPoint(edge.getVertex1(), projectVertexInFrontOfCamera(vertex1));
-                projectedMesh.putProjectedPoint(edge.getVertex2(), clippingPoint(vertex2, vertex1));
+            } else if (Point3d1InFront) {
+                projectedMesh.putProjectedPoint(edge.getPoint3d1(), projectPoint3dInFrontOfCamera(Point3d1));
+                projectedMesh.putProjectedPoint(edge.getPoint3d2(), clippingPoint(Point3d2, Point3d1));
 
                 ProjectedEdge projectedEdge = new ProjectedEdge();
-                projectedEdge.setP1(projectedMesh.getProjectedPoints().get(edge.getVertex1()));
-                projectedEdge.setP2(projectedMesh.getProjectedPoints().get(edge.getVertex2()));
+                projectedEdge.setP1(projectedMesh.getProjectedPoints().get(edge.getPoint3d1()));
+                projectedEdge.setP2(projectedMesh.getProjectedPoints().get(edge.getPoint3d2()));
                 projectedMesh.putProjectEdge(edgeIndex, projectedEdge);
-            } else if (vertex2InFront) {
-                projectedMesh.putProjectedPoint(edge.getVertex2(), projectVertexInFrontOfCamera(vertex2));
-                projectedMesh.putProjectedPoint(edge.getVertex1(), clippingPoint(vertex1, vertex2));
+            } else if (Point3d2InFront) {
+                projectedMesh.putProjectedPoint(edge.getPoint3d2(), projectPoint3dInFrontOfCamera(Point3d2));
+                projectedMesh.putProjectedPoint(edge.getPoint3d1(), clippingPoint(Point3d1, Point3d2));
 
                 ProjectedEdge projectedEdge = new ProjectedEdge();
-                projectedEdge.setP1(projectedMesh.getProjectedPoints().get(edge.getVertex1()));
-                projectedEdge.setP2(projectedMesh.getProjectedPoints().get(edge.getVertex2()));
+                projectedEdge.setP1(projectedMesh.getProjectedPoints().get(edge.getPoint3d1()));
+                projectedEdge.setP2(projectedMesh.getProjectedPoints().get(edge.getPoint3d2()));
                 projectedMesh.putProjectEdge(edgeIndex, projectedEdge);
             }
         }
@@ -114,22 +113,22 @@ public class Camera extends Object3d  {
 
     /**
      * projects the vertices in front of the camera
-     * @param vertex the vertex to be projected
+     * @param Point3d the Point3d to be projected
      * @return the projected point
      */
-    private Point2d projectVertexInFrontOfCamera(Vertex vertex) {
-        Ray ray = new Ray(observer, vertex);
+    private Point2d projectPoint3dInFrontOfCamera(Point3d Point3d) {
+        Ray ray = new Ray(observer, Point3d);
         Point3d intersect = ray.intersectWithPlane(picturePlane);
         if(intersect != null) {
-            return picturePlane.project3dPointOnPanel(intersect, orientation, gamePanel);
+            return picturePlane.project3dPointOnPanel(intersect, getOrientation(), gamePanel);
         }
         return null;
     }
-    private Point2d clippingPoint(Vertex vertex, Vertex connectedVertex) {
-        Ray ray = new Ray(vertex, connectedVertex);
+    private Point2d clippingPoint(Point3d Point3d, Point3d connectedPoint3d) {
+        Ray ray = new Ray(Point3d, connectedPoint3d);
         Point3d intersect = ray.intersectWithPlane(picturePlane);
         if (intersect != null) {
-            return picturePlane.project3dPointOnPanel(intersect, orientation, gamePanel);
+            return picturePlane.project3dPointOnPanel(intersect, getOrientation(), gamePanel);
         }
         return null;
     }
@@ -141,15 +140,10 @@ public class Camera extends Object3d  {
         updatePicturePlane();
     }
 
-    @Override
-    protected void updateMesh() {
-
-    }
-
     private void updatePicturePlane() {
-        Vector forward = orientation.getForward();
-        Vector right = orientation.getRight();
-        Vector up = orientation.getUp();
+        Vector forward = getOrientation().getForward();
+        Vector right = getOrientation().getRight();
+        Vector up = getOrientation().getUp();
 
         Point3d topLeft = observer
                 .addDistanceAlongVector(forward, 1)

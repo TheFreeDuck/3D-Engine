@@ -45,12 +45,32 @@ public class Orientation implements Serializable {
      * @param vector to multiply
      * @return the transformed vector
      */
-    public synchronized Vector multiply(Vector vector) {
+    public synchronized Vector multiplyVector(Vector vector) {
         double x = right.getX() * vector.getX() + getUp().getX() * vector.getY() + forward.getX() * vector.getZ();
         double y = right.getY() * vector.getX() + getUp().getY() * vector.getY() + forward.getY() * vector.getZ();
         double z = right.getZ() * vector.getX() + getUp().getZ() * vector.getY() + forward.getZ() * vector.getZ();
         return new Vector(x, y, z);
     }
+
+    public Orientation multiply(Orientation other) {
+        Vector newForward = multiplyVector(other.forward);
+        Vector newRight = multiplyVector(other.right);
+        return new Orientation(newForward, newRight);
+    }
+
+
+    /**
+     * Returns the inverse of the orientation.
+     * The inverse orientation has the opposite rotation.
+     *
+     * @return the inverse orientation
+     */
+    public Orientation inverse() {
+        Vector invRight = right.crossProduct(forward).unitVector();
+        Vector invForward = forward.crossProduct(invRight).unitVector();
+        return new Orientation(invForward, invRight);
+    }
+
 
     public Vector getUp() {
         return forward.crossProduct(right).unitVector();

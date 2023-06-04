@@ -5,36 +5,40 @@ import main.java.math.Vector;
 import main.java.mesh.Mesh;
 
 
+public class Object3d {
+    private Mesh mesh;
+    private Point3d position;
+    private Orientation orientation;
+    private Vector velocity;
+    private Vector rotationVelocity;
 
-public abstract class Object3d  {
-
-    protected Mesh mesh;
-    protected Point3d position;
-
-    protected Orientation orientation;
-    protected Vector velocity;
-
-    protected Vector rotation;
-
-    protected Object3d(Point3d position, Orientation orientation) {
+    public Object3d(Point3d position, Orientation orientation, Mesh mesh) {
         this.position = position;
         this.orientation = orientation;
+        this.mesh = mesh;
         velocity = new Vector(0, 0, 0);
-        rotation = new Vector(0, 0, 0);
+        rotationVelocity = new Vector(0, 0, 0);
+        if(mesh != null){
+            mesh = mesh.update(position,orientation);
+        }
+
     }
 
     public void update(){
         position = position.addVector(velocity);
-        rotate(rotation.scalar(), rotation);
-        updateMesh();
+        rotate(rotationVelocity.scalar(), rotationVelocity);
+        if(mesh != null){
+            mesh = mesh.update(position,orientation);
+        }
+
     }
 
     public void rotate(double angle, Vector axis){
         orientation.rotate(angle, axis);
-        updateMesh();
+        if(mesh != null){
+            mesh = mesh.update(position,orientation);
+        }
     }
-
-    protected abstract void updateMesh();
 
     public Point3d getPosition() {
         return position;
@@ -55,7 +59,6 @@ public abstract class Object3d  {
     public Mesh getMesh() {
         return mesh;
     }
-
     public Vector getVelocity() {
         return velocity;
     }
@@ -64,11 +67,11 @@ public abstract class Object3d  {
         this.velocity = velocity;
     }
 
-    public Vector getRotation() {
-        return rotation;
+    public Vector getRotationVelocity() {
+        return rotationVelocity;
     }
 
-    public void setRotation(Vector rotation) {
-        this.rotation = rotation;
+    public void setRotationVelocity(Vector rotationVelocity) {
+        this.rotationVelocity = rotationVelocity;
     }
 }

@@ -6,11 +6,13 @@ import main.java.game.World;
 import main.java.math.Point3d;
 import main.java.math.Vector;
 import main.java.mesh.Mesh;
-import main.java.mesh.Vertex;
-import main.java.object3d.standardobjects.Cuboid;
-import main.java.object3d.standardobjects.Pyramid;
-import main.java.object3d.standardobjects.Sphere;
-import main.java.object3d.standardobjects.Torus;
+import main.java.mesh.meshloaders.ObjMesh;
+import main.java.mesh.standardmeshes.CuboidMesh;
+import main.java.mesh.standardmeshes.PyramidMesh;
+import main.java.mesh.standardmeshes.SphereMesh;
+import main.java.mesh.standardmeshes.TorusMesh;
+import main.java.object3d.Object3d;
+import main.java.object3d.Orientation;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -27,29 +29,34 @@ public class MultiPlayerWorld extends World {
         objects = new Objects();
         otherPlayers = new ArrayList<>();
 
-        objects.add(new Cuboid(new Vertex(2, 0, 0), 1, 1, 1));
+        objects.add(new Object3d(new Point3d(2.5,2,0.5), Orientation.standard(),new SphereMesh(0.5,20,20)));
+        objects.add(new Object3d(new Point3d(2.5,3.5,0),Orientation.standard(),new PyramidMesh(1,1)));
 
-        objects.add(new Sphere(0.5, new Vertex(2.5,2,0.5),20,20));
+        objects.add(new Object3d(new Point3d(2.5,5.5,0.3),Orientation.standard(),new TorusMesh(0.6,0.3,20,20)));
 
-        objects.add(new Pyramid(1, 1,new Vertex(2.5,3.5,0)));
-
-        objects.add(new Torus(0.6,0.3,20,20,new Vertex(2.5,5.5,0.3)));
-
-
-        objects.add(new Cuboid(new Vertex(0, 10, 0), 21, 21, 21));
-        for (int i = 0; i < 100; i++) {
-            objects.add(new Cuboid(new Point3d(Math.max(2, Math.random() * 20), Math.random() * 20+10, Math.random() * 20), 1, 1, 1));
-        }
-
-        Torus torus = new Torus(200,100,40,40,new Vertex(-350,80,0.3));
-        torus.setRotation(new Vector(0,0,0.04));
+        Object3d torus = new Object3d(new Point3d(-350,80,0.3),Orientation.standard(),new TorusMesh(200,100,40,40));
+        torus.setRotationVelocity(new Vector(0,0,0.04));
 
         objects.add(torus);
 
-        Sphere sphere = new Sphere(25, new Vertex(2.5,70 ,13),20,20);
-        objects.add(sphere);
-        sphere.setRotation(new Vector(0.02,0.05,0.08));
+        //objects.add(new Sphere(25, new Point3d(2.5,70 ,13),20,20));
 
+        objects.add(new Object3d(new Point3d(0, 10, 0), Orientation.standard(),new CuboidMesh(21, 21, 21)));
+        //objects.add(player);
+        for (int i = 0; i < 100; i++) {
+            objects.add(new Object3d(new Point3d(Math.max(2, Math.random() * 20), Math.random() * 20+10, Math.random() * 20), Orientation.standard(),new CuboidMesh(1, 1, 1)));
+        }
+
+        Object3d sphere2 = new Object3d(new Point3d(2.5,70 ,13),Orientation.standard(), new SphereMesh(25,20,20));
+        objects.add(sphere2);
+        //sphere.setRotationVelocity(new Vector(0.02,0.05,0.08));
+
+        Object3d monk = new Object3d(new Point3d(3,-2,0),new Orientation(new Vector(-1,0,0),new Vector(0,-1,0)),new ObjMesh(getClass().getClassLoader().getResourceAsStream("SuzanMonkey.obj")));
+        objects.add(monk);
+        monk.setRotationVelocity(new Vector(0.002,0.05,0.08));
+        //monk.setVelocity(new Vector(0.01,0,0));
+
+        //objects.add(new ObjObject(new Point3d(10,-30,0),new Orientation(new Vector(-1,0,0),new Vector(0,0,-1)),"glider.obj"));
     }
 
     @Override

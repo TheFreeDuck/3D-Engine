@@ -29,7 +29,7 @@ public class MultiPlayerGame extends Game{
         ArrayList<Mesh> otherPlayers = new ArrayList<>();
         for (PlayerData playerData : playerDataList) {
             if(playerData != null) {
-                Mesh playerMesh = new ObjMesh(playerData.getPosition(), playerData.getOrientation(),getClass().getClassLoader().getResourceAsStream("SuzanMonkey.obj"));
+                Mesh playerMesh = new ObjMesh(getClass().getClassLoader().getResourceAsStream("SuzanMonkey.obj"));
                 playerMesh.setColor(Color.green);
                 otherPlayers.add(playerMesh);
             }

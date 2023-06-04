@@ -2,25 +2,25 @@ package main.java.mesh;
 
 public class Triangle  {
 
-    int vertex1;
-    int vertex2;
-    int vertex3;
+    int Point3d1;
+    int Point3d2;
+    int Point3d3;
 
-    public Triangle(int vertex1, int vertex2, int vertex3) {
-        this.vertex1 = vertex1;
-        this.vertex2 = vertex2;
-        this.vertex3 = vertex3;
+    public Triangle(int Point3d1, int Point3d2, int Point3d3) {
+        this.Point3d1 = Point3d1;
+        this.Point3d2 = Point3d2;
+        this.Point3d3 = Point3d3;
     }
 
-    public int getVertex1() {
-        return vertex1;
+    public int getPoint3d1() {
+        return Point3d1;
     }
 
-    public int getVertex2() {
-        return vertex2;
+    public int getPoint3d2() {
+        return Point3d2;
     }
 
-    public int getVertex3() {
-        return vertex3;
+    public int getPoint3d3() {
+        return Point3d3;
     }
 }

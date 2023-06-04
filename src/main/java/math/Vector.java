@@ -73,9 +73,27 @@ public class Vector implements Serializable {
         z *= magnitude;
     }
 
+    public Point3d toPoint(){
+    	return new Point3d(x, y, z);
+    }
+
     public Vector getScalarVector(double scalar) {
         double magnitude = scalar / scalar();
         return new Vector(x * magnitude, y * magnitude, z * magnitude);
+    }
+
+    public Vector subtract(Vector vector) {
+        return new Vector(x - vector.getX(), y - vector.getY(), z - vector.getZ());
+    }
+
+
+    /**
+     * Returns the negation of the vector.
+     *
+     * @return the negated vector
+     */
+    public Vector negate() {
+        return new Vector(-x, -y, -z);
     }
 
 
