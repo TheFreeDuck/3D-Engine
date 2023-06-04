@@ -2,10 +2,11 @@ package main.java.object3d.camera;
 
 import main.java.math.Point2d;
 import main.java.math.Point3d;
-import main.java.math.Vector;
-import main.java.game.GamePanel;
-import main.java.object3d.Orientation;
 import main.java.math.Rectangle;
+import main.java.math.Vector;
+import main.java.object3d.Orientation;
+
+import javax.swing.*;
 
 public class PicturePlane extends Rectangle {
     private double aspectRatio;
@@ -30,13 +31,13 @@ public class PicturePlane extends Rectangle {
     }
 
     /**
-     * Projects a point on the picture plane onto the game panel
+     * Projects a point on the picture plane onto a panel
      * @param intersect Point to project
      * @param orientation Orientation of the camera
-     * @param gamePanel GamePanel to project on
+     * @param panel panel to project on
      * @return Point2d on the game panel
      */
-    public Point2d project3dPointOnPanel(Point3d intersect, Orientation orientation, GamePanel gamePanel) {
+    public Point2d project3dPointOnPanel(Point3d intersect, Orientation orientation, JPanel panel) {
         Vector hypotenuse = new Vector(intersect, this.getVtx1());
         double length = hypotenuse.scalar();
         double angle;
@@ -46,7 +47,7 @@ public class PicturePlane extends Rectangle {
             angle = Math.PI - hypotenuse.angleBetweenVector(orientation.getRight());
 
         }
-        return new Point2d(Math.cos(angle) * length * (gamePanel.getWidth() / this.getW()), Math.sin(angle) * length * (gamePanel.getHeight() / this.getH()));
+        return new Point2d(Math.cos(angle) * length * (panel.getWidth() / this.getW()), Math.sin(angle) * length * (panel.getHeight() / this.getH()));
     }
     public double getAspectRatio() {
         return aspectRatio;

@@ -66,11 +66,10 @@ public class Vector implements Serializable {
         return new Vector(x * scalar, y * scalar, z * scalar);
     }
 
-    public void setScalar(double scalar) {
+    public Vector setScalar(double scalar) {
         double magnitude = scalar / scalar();
-        x *= magnitude;
-        y *= magnitude;
-        z *= magnitude;
+
+        return new Vector(x * magnitude, y * magnitude, z * magnitude);
     }
 
     public Point3d toPoint(){

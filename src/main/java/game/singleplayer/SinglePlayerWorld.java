@@ -20,11 +20,13 @@ import java.awt.*;
  */
 public class SinglePlayerWorld extends World {
 
+    Object3d plane;
+
     public SinglePlayerWorld(GamePanel gamePanel) {
         super(gamePanel);
         objects = new Objects();
 
-
+        objects.add(new Object3d(new Point3d(2,0,0),Orientation.standard(),new CuboidMesh(1,1,1)));
         objects.add(new Object3d(new Point3d(2.5,2,0.5),Orientation.standard(),new SphereMesh(0.5,20,20)));
         objects.add(new Object3d(new Point3d(2.5,3.5,0),Orientation.standard(),new PyramidMesh(1,1)));
 
@@ -50,6 +52,11 @@ public class SinglePlayerWorld extends World {
         Object3d monk = new Object3d(new Point3d(3,-2,0),new Orientation(new Vector(-1,0,0),new Vector(0,-1,0)),new ObjMesh(getClass().getClassLoader().getResourceAsStream("SuzanMonkey.obj")));
         objects.add(monk);
         monk.setRotationVelocity(new Vector(0.002,0.05,0.08));
+
+        plane = new Object3d(new Point3d(800,-900,0),new Orientation(new Vector(-1,0,0),new Vector(0,-1,0)),new ObjMesh(getClass().getClassLoader().getResourceAsStream("Plane.obj")));
+        objects.add(plane);
+        plane.setRotationVelocity(new Vector(0,0,-0.15));
+
         //monk.setVelocity(new Vector(0.01,0,0));
 
         //objects.add(new ObjObject(new Point3d(10,-30,0),new Orientation(new Vector(-1,0,0),new Vector(0,0,-1)),"glider.obj"));
@@ -58,6 +65,7 @@ public class SinglePlayerWorld extends World {
 
     @Override
     public void update() {
+        plane.setVelocity(plane.getOrientation().getForward().setScalar(-30));
         objects.update();
         player.update();
     }
