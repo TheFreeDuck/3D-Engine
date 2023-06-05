@@ -3,7 +3,7 @@ package main.java.mesh.standardmeshes;
 import main.java.math.Point3d;
 import main.java.mesh.Edge;
 import main.java.mesh.Mesh;
-import main.java.mesh.Triangle;
+import main.java.mesh.Face;
 import main.java.object3d.Orientation;
 
 import java.util.ArrayList;
@@ -41,15 +41,15 @@ public class PyramidMesh extends Mesh {
         edges.add(new Edge(4, 5));
 
         // Create triangles
-        triangles = new ArrayList<>();
-        triangles.add(new Triangle(0, 1, 2));
-        triangles.add(new Triangle(0, 2, 3));
-        triangles.add(new Triangle(0, 3, 4));
-        triangles.add(new Triangle(0, 4, 1));
-        triangles.add(new Triangle(1, 2, 5));
-        triangles.add(new Triangle(2, 3, 5));
-        triangles.add(new Triangle(3, 4, 5));
-        triangles.add(new Triangle(4, 1, 5));
+        faces = new ArrayList<>();
+        faces.add(new Face(0, 1, 2));
+        faces.add(new Face(0, 2, 3));
+        faces.add(new Face(0, 3, 4));
+        faces.add(new Face(0, 4, 1));
+        faces.add(new Face(1, 2, 5));
+        faces.add(new Face(2, 3, 5));
+        faces.add(new Face(3, 4, 5));
+        faces.add(new Face(4, 1, 5));
     }
 
     public PyramidMesh(Point3d origin, Orientation orientation, double baseWidth, double height) {
@@ -84,15 +84,15 @@ public class PyramidMesh extends Mesh {
         edges.add(new Edge(4, 5));
 
         // Create triangles
-        triangles = new ArrayList<>();
-        triangles.add(new Triangle(0, 1, 2));
-        triangles.add(new Triangle(0, 2, 3));
-        triangles.add(new Triangle(0, 3, 4));
-        triangles.add(new Triangle(0, 4, 1));
-        triangles.add(new Triangle(1, 2, 5));
-        triangles.add(new Triangle(2, 3, 5));
-        triangles.add(new Triangle(3, 4, 5));
-        triangles.add(new Triangle(4, 1, 5));
+        faces = new ArrayList<>();
+        faces.add(new Face(0, 1, 2));
+        faces.add(new Face(0, 2, 3));
+        faces.add(new Face(0, 3, 4));
+        faces.add(new Face(0, 4, 1));
+        faces.add(new Face(1, 2, 5));
+        faces.add(new Face(2, 3, 5));
+        faces.add(new Face(3, 4, 5));
+        faces.add(new Face(4, 1, 5));
     }
 
     @Override

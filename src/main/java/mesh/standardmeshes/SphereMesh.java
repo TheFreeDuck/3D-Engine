@@ -4,7 +4,7 @@ import main.java.math.Point3d;
 import main.java.math.Vector;
 import main.java.mesh.Edge;
 import main.java.mesh.Mesh;
-import main.java.mesh.Triangle;
+import main.java.mesh.Face;
 import main.java.object3d.Orientation;
 
 import java.util.ArrayList;
@@ -55,7 +55,7 @@ public class SphereMesh extends Mesh {
         }
 
         // Create triangles
-        triangles = new ArrayList<>();
+        faces = new ArrayList<>();
         count = 0;
         for (int i = 0; i < nLongitudeSegments; i++) {
             for (int j = 0; j < nLatitudeSegments; j++) {
@@ -64,8 +64,8 @@ public class SphereMesh extends Mesh {
                 int v3 = j + 1 + (nLatitudeSegments + 1) * (i + 1);
                 int v4 = j + 1 + (nLatitudeSegments + 1) * i;
 
-                triangles.add(new Triangle(v1, v2, v3));
-                triangles.add(new Triangle(v1, v3, v4));
+                faces.add(new Face(v1, v2, v3));
+                faces.add(new Face(v1, v3, v4));
             }
         }
     }
@@ -113,7 +113,7 @@ public class SphereMesh extends Mesh {
         }
 
         // Create triangles
-        triangles = new ArrayList<>();
+        faces = new ArrayList<>();
         count = 0;
         for (int i = 0; i < nLongitudeSegments; i++) {
             for (int j = 0; j < nLatitudeSegments; j++) {
@@ -122,8 +122,8 @@ public class SphereMesh extends Mesh {
                 int v3 = j + 1 + (nLatitudeSegments + 1) * (i + 1);
                 int v4 = j + 1 + (nLatitudeSegments + 1) * i;
 
-                triangles.add(new Triangle(v1, v2, v3));
-                triangles.add(new Triangle(v1, v3, v4));
+                faces.add(new Face(v1, v2, v3));
+                faces.add(new Face(v1, v3, v4));
             }
         }
     }

@@ -5,14 +5,13 @@ import main.java.math.Point2d;
 import main.java.math.Point3d;
 import main.java.math.Ray;
 import main.java.math.Vector;
-import main.java.mesh.Edge;
+import main.java.mesh.Face;
 import main.java.mesh.Mesh;
 import main.java.object3d.Object3d;
 import main.java.object3d.Orientation;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * @author Fredrik
@@ -44,11 +43,9 @@ public class Camera extends Object3d {
      * @param g the graphics object
      */
     public void drawProjectedMeshes(ArrayList<Mesh> meshes, Graphics g) {
-        HashMap<Integer, ProjectedMesh> projectedMeshes = projectMeshes(meshes);
-        for (int i = 0; i < projectedMeshes.size(); i++) {
-            projectedMeshes.get(i).drawEdges(g);
-            //projectedMeshes.get(i).drawVertices(g);
-
+        ArrayList<ProjectedMesh> projectedMeshes = projectMeshes(meshes);
+        for(ProjectedMesh mesh : projectedMeshes){
+            mesh.drawEdges(g);
         }
 
     }
@@ -58,10 +55,10 @@ public class Camera extends Object3d {
      * @param meshes the meshes to be projected
      * @return a hashmap of the projected meshes
      */
-    private HashMap<Integer, ProjectedMesh> projectMeshes(ArrayList<Mesh> meshes) {
-            HashMap<Integer, ProjectedMesh> projectedMeshes = new HashMap<>();
-        for (int i = 0; i < meshes.size(); i++) {
-            projectedMeshes.put(i,projectMesh(meshes.get(i)));
+    private ArrayList<ProjectedMesh> projectMeshes(ArrayList<Mesh> meshes) {
+        ArrayList<ProjectedMesh> projectedMeshes = new ArrayList<>();
+        for (Mesh mesh : meshes) {
+            projectedMeshes.add(projectMesh(mesh));
         }
         return projectedMeshes;
     }
@@ -73,40 +70,10 @@ public class Camera extends Object3d {
      */
     private ProjectedMesh projectMesh(Mesh mesh) {
         ProjectedMesh projectedMesh = new ProjectedMesh(mesh);
-
-        for (int edgeIndex : mesh.getEdges().keySet()) {
-            Edge edge = mesh.getEdges().get(edgeIndex);
-            Point3d Point3d1 = mesh.getVertices().get(edge.getPoint3d1());
-            Point3d Point3d2 = mesh. getVertices().get(edge.getPoint3d2());
-
-            boolean Point3d1InFront = Point3d1.isInFrontOf(observer.addDistanceAlongVector(getOrientation().getForward(),1), getOrientation().getForward());
-            boolean Point3d2InFront = Point3d2.isInFrontOf(observer.addDistanceAlongVector(getOrientation().getForward(),1), getOrientation().getForward());
-
-            if (Point3d1InFront && Point3d2InFront) {
-                projectedMesh.putProjectedPoint(edge.getPoint3d1(), projectPoint3dInFrontOfCamera(Point3d1));
-                projectedMesh.putProjectedPoint(edge.getPoint3d2(), projectPoint3dInFrontOfCamera(Point3d2));
-                ProjectedEdge projectedEdge = new ProjectedEdge();
-                projectedEdge.setP1(projectedMesh.getProjectedPoints().get(edge.getPoint3d1()));
-                projectedEdge.setP2(projectedMesh.getProjectedPoints().get(edge.getPoint3d2()));
-                projectedMesh.putProjectEdge(edgeIndex, projectedEdge);
-            } else if (Point3d1InFront) {
-                projectedMesh.putProjectedPoint(edge.getPoint3d1(), projectPoint3dInFrontOfCamera(Point3d1));
-                projectedMesh.putProjectedPoint(edge.getPoint3d2(), clippingPoint(Point3d2, Point3d1));
-
-                ProjectedEdge projectedEdge = new ProjectedEdge();
-                projectedEdge.setP1(projectedMesh.getProjectedPoints().get(edge.getPoint3d1()));
-                projectedEdge.setP2(projectedMesh.getProjectedPoints().get(edge.getPoint3d2()));
-                projectedMesh.putProjectEdge(edgeIndex, projectedEdge);
-            } else if (Point3d2InFront) {
-                projectedMesh.putProjectedPoint(edge.getPoint3d2(), projectPoint3dInFrontOfCamera(Point3d2));
-                projectedMesh.putProjectedPoint(edge.getPoint3d1(), clippingPoint(Point3d1, Point3d2));
-
-                ProjectedEdge projectedEdge = new ProjectedEdge();
-                projectedEdge.setP1(projectedMesh.getProjectedPoints().get(edge.getPoint3d1()));
-                projectedEdge.setP2(projectedMesh.getProjectedPoints().get(edge.getPoint3d2()));
-                projectedMesh.putProjectEdge(edgeIndex, projectedEdge);
-            }
+        for(Face face : mesh.getFaces()){
+            mesh.getVertices().get(face.getVertexIndices().get(0));
         }
+
 
         return projectedMesh;
     }

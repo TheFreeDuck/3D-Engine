@@ -45,4 +45,15 @@ public class ProjectedMesh{
         //not implemented
     }
 
+    public ArrayList<Point2d> getProjectedPoints() {
+        return projectedPoints;
+    }
+
+    public ArrayList<ProjectedEdge> getProjectedEdges() {
+        return projectedEdges;
+    }
+
+    public ArrayList<ProjectedFace> getProjectedFaces() {
+        return projectedFaces;
+    }
 }

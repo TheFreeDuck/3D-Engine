@@ -7,6 +7,8 @@ import main.java.mesh.Mesh;
 import main.java.object3d.Orientation;
 import main.java.object3d.camera.PicturePlane;
 
+import java.util.ArrayList;
+
 public class CameraMesh extends Mesh {
 
     public CameraMesh() {
@@ -41,15 +43,15 @@ public class CameraMesh extends Mesh {
         vertices.add(bottomRight);
         vertices.add(bottomLeft);
 
-        edges.put(0, new Edge(1,2));
-        edges.put(1, new Edge(2,3));
-        edges.put(2, new Edge(3,4));
-        edges.put(3, new Edge(4,1));
-        edges.put(4, new Edge(0,1));
-        edges.put(5, new Edge(0,2));
-        edges.put(6, new Edge(0,3));
-        edges.put(7, new Edge(0,4));
-
+        edges = new ArrayList<>();
+        edges.add(new Edge(1, 2));
+        edges.add(new Edge(2, 3));
+        edges.add(new Edge(3, 4));
+        edges.add(new Edge(4, 1));
+        edges.add(new Edge(0, 1));
+        edges.add(new Edge(0, 2));
+        edges.add(new Edge(0, 3));
+        edges.add(new Edge(0, 4));
     }
 
     @Override
@@ -62,21 +64,20 @@ public class CameraMesh extends Mesh {
         this.origin = origin;
         this.orientation = orientation;
 
-
         vertices.add(origin);
         vertices.add(picturePlane.getP1());
         vertices.add(picturePlane.getP2());
         vertices.add(picturePlane.getP3());
         vertices.add(picturePlane.getP4());
 
-        edges.put(0, new Edge(1,2));
-        edges.put(1, new Edge(2,3));
-        edges.put(2, new Edge(3,4));
-        edges.put(3, new Edge(4,1));
-        edges.put(4, new Edge(0,1));
-        edges.put(5, new Edge(0,2));
-        edges.put(6, new Edge(0,3));
-        edges.put(7, new Edge(0,4));
-
+        edges = new ArrayList<>();
+        edges.add(new Edge(1, 2));
+        edges.add(new Edge(2, 3));
+        edges.add(new Edge(3, 4));
+        edges.add(new Edge(4, 1));
+        edges.add(new Edge(0, 1));
+        edges.add(new Edge(0, 2));
+        edges.add(new Edge(0, 3));
+        edges.add(new Edge(0, 4));
     }
 }

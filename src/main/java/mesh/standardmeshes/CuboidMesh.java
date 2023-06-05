@@ -3,7 +3,7 @@ package main.java.mesh.standardmeshes;
 import main.java.math.Point3d;
 import main.java.mesh.Edge;
 import main.java.mesh.Mesh;
-import main.java.mesh.Triangle;
+import main.java.mesh.Face;
 import main.java.object3d.Orientation;
 
 import java.util.ArrayList;
@@ -45,19 +45,19 @@ public class CuboidMesh extends Mesh {
         edges.add(new Edge(6, 7)); // index 11
 
         // Create triangles
-        triangles = new ArrayList<>();
-        triangles.add(new Triangle(0, 2, 3));
-        triangles.add(new Triangle(0, 1, 2));
-        triangles.add(new Triangle(1, 5, 6));
-        triangles.add(new Triangle(1, 2, 5));
-        triangles.add(new Triangle(4, 5, 6));
-        triangles.add(new Triangle(4, 6, 7));
-        triangles.add(new Triangle(0, 4, 7));
-        triangles.add(new Triangle(0, 3, 7));
-        triangles.add(new Triangle(3, 6, 7));
-        triangles.add(new Triangle(3, 5, 6));
-        triangles.add(new Triangle(0, 1, 4));
-        triangles.add(new Triangle(1, 4, 5));
+        faces = new ArrayList<>();
+        faces.add(new Face(0, 2, 3));
+        faces.add(new Face(0, 1, 2));
+        faces.add(new Face(1, 5, 6));
+        faces.add(new Face(1, 2, 5));
+        faces.add(new Face(4, 5, 6));
+        faces.add(new Face(4, 6, 7));
+        faces.add(new Face(0, 4, 7));
+        faces.add(new Face(0, 3, 7));
+        faces.add(new Face(3, 6, 7));
+        faces.add(new Face(3, 5, 6));
+        faces.add(new Face(0, 1, 4));
+        faces.add(new Face(1, 4, 5));
     }
 
     public CuboidMesh(Point3d origin, Orientation orientation, double height, double width, double length) {
@@ -95,19 +95,19 @@ public class CuboidMesh extends Mesh {
         edges.add(new Edge(6, 7)); // index 11
 
         // Create triangles
-        triangles = new ArrayList<>();
-        triangles.add(new Triangle(0, 2, 3));
-        triangles.add(new Triangle(0, 1, 2));
-        triangles.add(new Triangle(1, 5, 6));
-        triangles.add(new Triangle(1, 2, 5));
-        triangles.add(new Triangle(4, 5, 6));
-        triangles.add(new Triangle(4, 6, 7));
-        triangles.add(new Triangle(0, 4, 7));
-        triangles.add(new Triangle(0, 3, 7));
-        triangles.add(new Triangle(3, 6, 7));
-        triangles.add(new Triangle(3, 5, 6));
-        triangles.add(new Triangle(0, 1, 4));
-        triangles.add(new Triangle(1, 4, 5));
+        faces = new ArrayList<>();
+        faces.add(new Face(0, 2, 3));
+        faces.add(new Face(0, 1, 2));
+        faces.add(new Face(1, 5, 6));
+        faces.add(new Face(1, 2, 5));
+        faces.add(new Face(4, 5, 6));
+        faces.add(new Face(4, 6, 7));
+        faces.add(new Face(0, 4, 7));
+        faces.add(new Face(0, 3, 7));
+        faces.add(new Face(3, 6, 7));
+        faces.add(new Face(3, 5, 6));
+        faces.add(new Face(0, 1, 4));
+        faces.add(new Face(1, 4, 5));
     }
 
     @Override

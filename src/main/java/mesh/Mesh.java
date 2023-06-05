@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public abstract class Mesh  {
     protected ArrayList<Point3d> vertices;
     protected ArrayList<Edge> edges;
-    protected ArrayList<Triangle> triangles;
+    protected ArrayList<Face> faces;
 
     protected Point3d origin;
 
@@ -23,7 +23,7 @@ public abstract class Mesh  {
         this.origin = new Point3d(10,0,0);
         vertices = new ArrayList<>();
         edges = new ArrayList<>();
-        triangles = new ArrayList<>();
+        faces = new ArrayList<>();
 
         color = Color.white;
     }
@@ -66,6 +66,10 @@ public abstract class Mesh  {
 
     public void setPoint3d(int i, Point3d Point3d) {
         vertices.set(i, Point3d);
+    }
+
+    public ArrayList<Face> getFaces() {
+        return faces;
     }
 
     public Color getColor() {

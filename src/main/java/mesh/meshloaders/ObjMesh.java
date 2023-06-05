@@ -3,8 +3,8 @@ package main.java.mesh.meshloaders;
 import main.java.math.Point3d;
 import main.java.math.Vector;
 import main.java.mesh.Edge;
+import main.java.mesh.Face;
 import main.java.mesh.Mesh;
-import main.java.mesh.Triangle;
 import main.java.object3d.Orientation;
 
 import java.io.BufferedReader;
@@ -16,14 +16,14 @@ import java.util.List;
 
 public class ObjMesh extends Mesh {
 
-    List<Point3d> objVertices;
-    List<int[]> faces;
+    ArrayList<Point3d> objVertices;
+    ArrayList<Face> faceList;
 
     public ObjMesh(InputStream inputStream) {
         super();
 
         objVertices = new ArrayList<>();
-        faces = new ArrayList<>();
+        faceList = new ArrayList<>();
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             String line;
@@ -33,15 +33,16 @@ public class ObjMesh extends Mesh {
                     double x = Double.parseDouble(parts[1]);
                     double y = Double.parseDouble(parts[2]);
                     double z = Double.parseDouble(parts[3]);
-                    Point3d Point3d = new Point3d(x, y, z);
-                    objVertices.add(Point3d);
+                    Point3d point3d = new Point3d(x, y, z);
+                    objVertices.add(point3d);
                 } else if (parts[0].equals("f")) {
-                    int[] face = new int[parts.length - 1];
+                    ArrayList<Integer> vertexIndices = new ArrayList<>();
                     for (int i = 1; i < parts.length; i++) {
                         String[] indices = parts[i].split("/");
-                        face[i - 1] = Integer.parseInt(indices[0]) - 1; // Subtract 1 to convert to 0-based index
+                        int vertexIndex = Integer.parseInt(indices[0]) - 1; // Subtract 1 to convert to 0-based index
+                        vertexIndices.add(vertexIndex);
                     }
-                    faces.add(face);
+                    faceList.add(new Face(vertexIndices));
                 }
             }
             reader.close();
@@ -51,9 +52,9 @@ public class ObjMesh extends Mesh {
 
         // Create vertices
         List<Point3d> vertices = new ArrayList<>();
-        for (Point3d Point3d : objVertices) {
-            // Apply transformation to each Point3d
-            Point3d transformedPoint3d = orientation.multiplyVector(new Vector(Point3d)).add(origin);
+        for (Point3d point3d : objVertices) {
+            // Apply transformation to each point3d
+            Point3d transformedPoint3d = orientation.multiplyVector(new Vector(point3d)).add(origin);
             vertices.add(transformedPoint3d);
         }
 
@@ -62,37 +63,30 @@ public class ObjMesh extends Mesh {
 
         // Create edges
         edges = new ArrayList<>();
-        int count = 0;
-        for (int[] face : faces) {
-            int v1 = face[0];
-            int v2 = face[1];
-            int v3 = face[2];
-            edges.add(new Edge(v1, v2));
-            edges.add(new Edge(v2, v3));
-            edges.add(new Edge(v3, v1));
+        for (Face face : faceList) {
+            List<Integer> vertexIndices = face.getVertexIndices();
+            int numVertices = vertexIndices.size();
+            for (int i = 0; i < numVertices; i++) {
+                int v1 = vertexIndices.get(i);
+                int v2 = vertexIndices.get((i + 1) % numVertices); // Wrap around for the last vertex
+                edges.add(new Edge(v1, v2));
+            }
         }
 
-        // Create triangles
-        triangles = new ArrayList<>();
-        count = 0;
-        for (int[] face : faces) {
-            int v1 = face[0];
-            int v2 = face[1];
-            int v3 = face[2];
-            triangles.add(new Triangle(v1, v2, v3));
-        }
+        // Set faces
+        faces = faceList;
     }
 
-    public ObjMesh(Point3d position,Orientation orientation,List<Point3d> objVertices,List<int[]> faces) {
+    public ObjMesh(Point3d position, Orientation orientation, ArrayList<Point3d> objVertices, ArrayList<Face> faceList) {
         super();
         this.origin = position;
         this.orientation = orientation;
         this.objVertices = objVertices;
-        this.faces  = faces;
+        this.faceList = faceList;
 
-        for (Point3d Point3d : objVertices) {
-            // Apply transformation to each Point3d
-            Point3d transformedPoint3d = orientation.multiplyVector(new Vector(Point3d)).add(origin);
+        for (Point3d point3d : objVertices) {
+            // Apply transformation to each point3d
+            Point3d transformedPoint3d = orientation.multiplyVector(new Vector(point3d)).add(origin);
             vertices.add(transformedPoint3d);
         }
 
@@ -101,29 +95,22 @@ public class ObjMesh extends Mesh {
 
         // Create edges
         edges = new ArrayList<>();
-        int count = 0;
-        for (int[] face : faces) {
-            int v1 = face[0];
-            int v2 = face[1];
-            int v3 = face[2];
-            edges.add(new Edge(v1, v2));
-            edges.add(new Edge(v2, v3));
-            edges.add(new Edge(v3, v1));
+        for (Face face : faceList) {
+            List<Integer> vertexIndices = face.getVertexIndices();
+            int numVertices = vertexIndices.size();
+            for (int i = 0; i < numVertices; i++) {
+                int v1 = vertexIndices.get(i);
+                int v2 = vertexIndices.get((i + 1) % numVertices); // Wrap around for the last vertex
+                edges.add(new Edge(v1, v2));
+            }
         }
 
-        // Create triangles
-        triangles = new ArrayList<>();
-        count = 0;
-        for (int[] face : faces) {
-            int v1 = face[0];
-            int v2 = face[1];
-            int v3 = face[2];
-            triangles.add(new Triangle(v1, v2, v3));
-        }
+        // Set faces
+        faces = faceList;
     }
 
     @Override
     public Mesh update(Point3d position, Orientation orientation) {
-        return new ObjMesh(position,orientation,objVertices,faces);
+        return new ObjMesh(position, orientation, objVertices, faceList);
     }
 }
