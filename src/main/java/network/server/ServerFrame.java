@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.util.ArrayList;
+import java.util.List;
 
 public class ServerFrame extends JFrame {
 
@@ -18,10 +18,10 @@ public class ServerFrame extends JFrame {
     private JLabel clientsLabel;
 
     private int port;
-    private ArrayList<ClientHandler> clients;
+    private List<ClientHandler> clients;
     private JTextArea consoleTextArea;
 
-    public ServerFrame(int port, ArrayList<ClientHandler> clients, Server server) {
+    public ServerFrame(int port, List<ClientHandler> clients, Server server) {
         this.port = port;
         this.clients = clients;
 

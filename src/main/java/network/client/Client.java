@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Client {
     private Socket socket;
@@ -44,7 +45,7 @@ public class Client {
     private void listen() {
         while (alive || socket.isBound()) {
             try {
-                ArrayList<PlayerData> playerData = (ArrayList<PlayerData>) inStream.readObject();
+                List<PlayerData> playerData = (List<PlayerData>) inStream.readObject();
                 game.updateOtherPlayers(playerData);
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null,  "Connection lost: " + e,"Connection lost", JOptionPane.ERROR_MESSAGE);

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
+import java.util.List;
 
 public class ClientHandler {
 
@@ -37,7 +37,7 @@ public class ClientHandler {
         }
 
     }
-    public void sendPlayerData(ArrayList<PlayerData> playerData) {
+    public void sendPlayerData(List<PlayerData> playerData) {
         try {
             outStream.writeObject(playerData);
             outStream.reset();

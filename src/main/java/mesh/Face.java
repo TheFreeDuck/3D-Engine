@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Face {
-    private ArrayList<Integer> vertexIndices;
+    private List<Integer> vertexIndices;
 
-    public Face(ArrayList<Integer> vertexIndices) {
+    public Face(List<Integer> vertexIndices) {
         this.vertexIndices = vertexIndices;
     }
 

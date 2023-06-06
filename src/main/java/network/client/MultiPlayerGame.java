@@ -11,6 +11,7 @@ import main.java.object3d.Orientation;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MultiPlayerGame extends Game{
     public MultiPlayerGame(World world, Frame frame, GamePanel gamePanel) {
@@ -25,8 +26,8 @@ public class MultiPlayerGame extends Game{
 
     }
 
-    public void updateOtherPlayers(ArrayList<PlayerData> playerDataList){
-        ArrayList<Mesh> otherPlayers = new ArrayList<>();
+    public void updateOtherPlayers(List<PlayerData> playerDataList){
+        List<Mesh> otherPlayers = new ArrayList<>();
         for (PlayerData playerData : playerDataList) {
             if(playerData != null) {
                 Mesh playerMesh = new ObjMesh(getClass().getClassLoader().getResourceAsStream("SuzanMonkey.obj"));

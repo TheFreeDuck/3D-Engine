@@ -1,6 +1,7 @@
 package main.java.math;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * p1 is top left of the rectangle
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 public class Rectangle  {
 
     private double w, h;
-    ArrayList<Point3d> vertices;
+    List<Point3d> vertices;
     private Vector v1, v2;
 
     // constants which define the plane to speed up projection

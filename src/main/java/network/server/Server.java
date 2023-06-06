@@ -4,12 +4,13 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Server {
     private ServerSocket serverSocket;
-    private ArrayList<ClientHandler> clients;
+    private List<ClientHandler> clients;
     private Timer timer;
     private ServerFrame serverFrame;
 
@@ -46,16 +47,17 @@ public class Server {
         }
     }
     private void sendUpdates() {
-        ArrayList<PlayerData> playerData = getPlayerData();
+        List<PlayerData> playerData = getPlayerData();
         for (int i = 0; i < clients.size(); i++) {
-            ArrayList<PlayerData> otherPlayerData = (ArrayList<PlayerData>) playerData.clone();
+            List<PlayerData> otherPlayerData = new ArrayList<>(playerData);
             otherPlayerData.remove(i);
             clients.get(i).sendPlayerData(otherPlayerData);
         }
     }
 
-    private ArrayList<PlayerData> getPlayerData(){
-        ArrayList<PlayerData> playerData = new ArrayList<>();
+
+    private List<PlayerData> getPlayerData(){
+        List<PlayerData> playerData = new ArrayList<>();
         for(ClientHandler client : clients) {
             playerData.add(client.getPlayerData());
         }

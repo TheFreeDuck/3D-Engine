@@ -6,11 +6,12 @@ import main.java.object3d.Orientation;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Mesh  {
-    protected ArrayList<Point3d> vertices;
-    protected ArrayList<Edge> edges;
-    protected ArrayList<Face> faces;
+    protected List<Point3d> vertices;
+    protected List<Edge> edges;
+    protected List<Face> faces;
 
     protected Point3d origin;
 
@@ -56,11 +57,11 @@ public abstract class Mesh  {
 
 
 
-    public ArrayList<Point3d> getVertices() {
+    public List<Point3d> getVertices() {
         return vertices;
     }
 
-    public void setVertices(ArrayList<Point3d> vertices) {
+    public void setVertices(List<Point3d> vertices) {
         this.vertices = vertices;
     }
 
@@ -68,7 +69,7 @@ public abstract class Mesh  {
         vertices.set(i, Point3d);
     }
 
-    public ArrayList<Face> getFaces() {
+    public List<Face> getFaces() {
         return faces;
     }
 

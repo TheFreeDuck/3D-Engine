@@ -12,6 +12,7 @@ import main.java.object3d.Orientation;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Fredrik
@@ -42,8 +43,8 @@ public class Camera extends Object3d {
      * @param meshes the meshes to be drawn
      * @param g the graphics object
      */
-    public void drawProjectedMeshes(ArrayList<Mesh> meshes, Graphics g) {
-        ArrayList<ProjectedMesh> projectedMeshes = projectMeshes(meshes);
+    public void drawProjectedMeshes(List<Mesh> meshes, Graphics g) {
+        List<ProjectedMesh> projectedMeshes = projectMeshes(meshes);
         for(ProjectedMesh mesh : projectedMeshes){
             mesh.drawVertices(g);
             mesh.drawEdges(g);
@@ -57,8 +58,8 @@ public class Camera extends Object3d {
      * @param meshes the meshes to be projected
      * @return a hashmap of the projected meshes
      */
-    private ArrayList<ProjectedMesh> projectMeshes(ArrayList<Mesh> meshes) {
-        ArrayList<ProjectedMesh> projectedMeshes = new ArrayList<>();
+    private List<ProjectedMesh> projectMeshes(List<Mesh> meshes) {
+        List<ProjectedMesh> projectedMeshes = new ArrayList<>();
         for (Mesh mesh : meshes) {
             projectedMeshes.add(projectMesh(mesh));
         }
@@ -72,10 +73,10 @@ public class Camera extends Object3d {
      */
     private ProjectedMesh projectMesh(Mesh mesh) {
         ProjectedMesh projectedMesh = new ProjectedMesh(mesh);
-        ArrayList<ProjectedFace> projectedFaces =  new ArrayList<>();
+        List<ProjectedFace> projectedFaces =  new ArrayList<>();
         for (Face face : mesh.getFaces()) {
             ProjectedFace projectedFace = new ProjectedFace();
-            ArrayList<Point2d> projectedVertices = new ArrayList<>();
+            List<Point2d> projectedVertices = new ArrayList<>();
             for (int vertexIndex : face.getVertexIndices()) {
                 Point2d projectedPoint = projectPoint3dInFrontOfCamera(mesh.getVertices().get(vertexIndex));
                 projectedVertices.add(projectedPoint);

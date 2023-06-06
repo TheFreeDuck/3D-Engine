@@ -16,8 +16,8 @@ import java.util.List;
 
 public class ObjMesh extends Mesh {
 
-    ArrayList<Point3d> objVertices;
-    ArrayList<Face> faceList;
+    List<Point3d> objVertices;
+    List<Face> faceList;
 
     public ObjMesh(InputStream inputStream) {
         super();
@@ -36,7 +36,7 @@ public class ObjMesh extends Mesh {
                     Point3d point3d = new Point3d(x, y, z);
                     objVertices.add(point3d);
                 } else if (parts[0].equals("f")) {
-                    ArrayList<Integer> vertexIndices = new ArrayList<>();
+                    List<Integer> vertexIndices = new ArrayList<>();
                     for (int i = 1; i < parts.length; i++) {
                         String[] indices = parts[i].split("/");
                         int vertexIndex = Integer.parseInt(indices[0]) - 1; // Subtract 1 to convert to 0-based index
@@ -77,7 +77,7 @@ public class ObjMesh extends Mesh {
         faces = faceList;
     }
 
-    public ObjMesh(Point3d position, Orientation orientation, ArrayList<Point3d> objVertices, ArrayList<Face> faceList) {
+    public ObjMesh(Point3d position, Orientation orientation, List<Point3d> objVertices, List<Face> faceList) {
         super();
         this.origin = position;
         this.orientation = orientation;

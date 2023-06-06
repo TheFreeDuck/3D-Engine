@@ -5,14 +5,15 @@ import main.java.mesh.Mesh;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProjectedMesh{
     Mesh mesh;
-    private ArrayList<Point2d> projectedPoints;
-    private ArrayList<ProjectedEdge> projectedEdges;
+    private List<Point2d> projectedPoints;
+    private List<ProjectedEdge> projectedEdges;
 
     //not implemented
-    private ArrayList<ProjectedFace> projectedFaces;
+    private List<ProjectedFace> projectedFaces;
 
     public ProjectedMesh(Mesh mesh) {
         this.mesh = mesh;
@@ -45,7 +46,7 @@ public class ProjectedMesh{
     public void drawFaces(Graphics g) {
         for (ProjectedFace projectedFace : projectedFaces) {
 
-            ArrayList<Point2d> points = projectedFace.projectedPoints;
+            List<Point2d> points = projectedFace.projectedPoints;
 
             int[] xPoints = new int[points.size()];
             int[] yPoints = new int[points.size()];
@@ -63,27 +64,27 @@ public class ProjectedMesh{
 
     }
 
-    public ArrayList<Point2d> getProjectedPoints() {
+    public List<Point2d> getProjectedPoints() {
         return projectedPoints;
     }
 
-    public ArrayList<ProjectedEdge> getProjectedEdges() {
+    public List<ProjectedEdge> getProjectedEdges() {
         return projectedEdges;
     }
 
-    public ArrayList<ProjectedFace> getProjectedFaces() {
+    public List<ProjectedFace> getProjectedFaces() {
         return projectedFaces;
     }
 
-    public void setProjectedPoints(ArrayList<Point2d> projectedPoints) {
+    public void setProjectedPoints(List<Point2d> projectedPoints) {
         this.projectedPoints = projectedPoints;
     }
 
-    public void setProjectedEdges(ArrayList<ProjectedEdge> projectedEdges) {
+    public void setProjectedEdges(List<ProjectedEdge> projectedEdges) {
         this.projectedEdges = projectedEdges;
     }
 
-    public void setProjectedFaces(ArrayList<ProjectedFace> projectedFaces) {
+    public void setProjectedFaces(List<ProjectedFace> projectedFaces) {
         this.projectedFaces = projectedFaces;
     }
 }

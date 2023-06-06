@@ -16,6 +16,7 @@ import main.java.object3d.Orientation;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Fredrik
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 public class MultiPlayerWorld extends World {
 
     Object3d plane;
-    private ArrayList<Mesh> otherPlayers;
+    private List<Mesh> otherPlayers;
 
     public MultiPlayerWorld(GamePanel gamePanel) {
         super(gamePanel);
@@ -86,7 +87,7 @@ public class MultiPlayerWorld extends World {
     public void keyEvents() {
         player.keyEvents();
     }
-    public void setOtherPlayers(ArrayList<Mesh> otherPlayers) {
+    public void setOtherPlayers(List<Mesh> otherPlayers) {
         this.otherPlayers.clear();
         this.otherPlayers.addAll(otherPlayers);
     }

@@ -5,14 +5,15 @@ import main.java.object3d.Object3d;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Fredrik
  */
 public class Objects extends ArrayList<Object3d>  {
 
-    public ArrayList<Mesh> meshes() {
-        ArrayList<Mesh> meshes = new ArrayList<>();
+    public List<Mesh> meshes() {
+        List<Mesh> meshes = new ArrayList<>();
         for (Object3d object : this) {
             meshes.add(object.getMesh());
         }
