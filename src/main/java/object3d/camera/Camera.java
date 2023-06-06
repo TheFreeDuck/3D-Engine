@@ -45,7 +45,9 @@ public class Camera extends Object3d {
     public void drawProjectedMeshes(ArrayList<Mesh> meshes, Graphics g) {
         ArrayList<ProjectedMesh> projectedMeshes = projectMeshes(meshes);
         for(ProjectedMesh mesh : projectedMeshes){
+            mesh.drawVertices(g);
             mesh.drawEdges(g);
+            mesh.drawFaces(g);
         }
 
     }
@@ -70,13 +72,22 @@ public class Camera extends Object3d {
      */
     private ProjectedMesh projectMesh(Mesh mesh) {
         ProjectedMesh projectedMesh = new ProjectedMesh(mesh);
-        for(Face face : mesh.getFaces()){
-            mesh.getVertices().get(face.getVertexIndices().get(0));
+        ArrayList<ProjectedFace> projectedFaces =  new ArrayList<>();
+        for (Face face : mesh.getFaces()) {
+            ProjectedFace projectedFace = new ProjectedFace();
+            ArrayList<Point2d> projectedVertices = new ArrayList<>();
+            for (int vertexIndex : face.getVertexIndices()) {
+                Point2d projectedPoint = projectPoint3dInFrontOfCamera(mesh.getVertices().get(vertexIndex));
+                projectedVertices.add(projectedPoint);
+                projectedMesh.getProjectedPoints().add(projectedPoint);
+            }
+            projectedFace.setProjectedPoints(projectedVertices);
+            projectedFaces.add(projectedFace);
         }
-
-
+        projectedMesh.setProjectedFaces(projectedFaces);
         return projectedMesh;
     }
+
 
     /**
      * projects the vertices in front of the camera
@@ -148,4 +159,5 @@ public class Camera extends Object3d {
     public PicturePlane getPicturePlane() {
         return picturePlane;
     }
+
 }

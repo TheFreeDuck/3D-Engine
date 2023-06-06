@@ -18,6 +18,7 @@ public class ProjectedMesh{
         this.mesh = mesh;
         projectedPoints = new ArrayList<>();
         projectedEdges = new ArrayList<>();
+        projectedFaces = new ArrayList<>();
     }
     public void drawVertices(Graphics g) {
         for(Point2d point: projectedPoints){
@@ -42,7 +43,24 @@ public class ProjectedMesh{
     }
 
     public void drawFaces(Graphics g) {
-        //not implemented
+        for (ProjectedFace projectedFace : projectedFaces) {
+
+            ArrayList<Point2d> points = projectedFace.projectedPoints;
+
+            int[] xPoints = new int[points.size()];
+            int[] yPoints = new int[points.size()];
+
+            for (int i = 0; i < points.size(); i++) {
+                if(points.get(i)!= null){
+                xPoints[i] = (int) points.get(i).getX();
+                yPoints[i] = (int) points.get(i).getY();
+                }
+            }
+
+            g.setColor(new Color((int) (Math.random()*255), (int) (Math.random()*255), (int) (Math.random()*255)));
+            g.fillPolygon(xPoints, yPoints, points.size());
+        }
+
     }
 
     public ArrayList<Point2d> getProjectedPoints() {
@@ -55,5 +73,17 @@ public class ProjectedMesh{
 
     public ArrayList<ProjectedFace> getProjectedFaces() {
         return projectedFaces;
+    }
+
+    public void setProjectedPoints(ArrayList<Point2d> projectedPoints) {
+        this.projectedPoints = projectedPoints;
+    }
+
+    public void setProjectedEdges(ArrayList<ProjectedEdge> projectedEdges) {
+        this.projectedEdges = projectedEdges;
+    }
+
+    public void setProjectedFaces(ArrayList<ProjectedFace> projectedFaces) {
+        this.projectedFaces = projectedFaces;
     }
 }

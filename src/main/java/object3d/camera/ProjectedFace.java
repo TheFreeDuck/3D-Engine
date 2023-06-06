@@ -2,32 +2,27 @@ package main.java.object3d.camera;
 
 import main.java.math.Point2d;
 
+import java.util.ArrayList;
+
 public class ProjectedFace {
-    Point2d p1;
-    Point2d p2;
-    Point2d p3;
+    ArrayList<Point2d> projectedPoints;
+    Camera camera;
 
-    public Point2d getP1() {
-        return p1;
+    public ProjectedFace() {
     }
 
-    public void setP1(Point2d p1) {
-        this.p1 = p1;
+    public ArrayList<Point2d> getProjectedPoints() {
+        return projectedPoints;
     }
 
-    public Point2d getP2() {
-        return p2;
+    public void setProjectedPoints(ArrayList<Point2d> projectedPoints) {
+        this.projectedPoints = projectedPoints;
     }
 
-    public void setP2(Point2d p2) {
-        this.p2 = p2;
-    }
-
-    public Point2d getP3() {
-        return p3;
-    }
-
-    public void setP3(Point2d p3) {
-        this.p3 = p3;
+    @Override
+    public String toString() {
+        return "ProjectedFace{" +
+                "projectedPoints=" + projectedPoints +
+                '}';
     }
 }

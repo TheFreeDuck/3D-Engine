@@ -18,9 +18,6 @@ public class Object3d {
         this.mesh = mesh;
         velocity = new Vector(0, 0, 0);
         rotationVelocity = new Vector(0, 0, 0);
-        if(mesh != null){
-            mesh = mesh.update(position,orientation);
-        }
 
     }
 
