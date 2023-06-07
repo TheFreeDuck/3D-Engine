@@ -50,7 +50,9 @@ public class Camera extends Object3d {
         for(Mesh mesh : meshes){
             bigMesh.addMesh(mesh);
         }
-        projectMesh(bigMesh).drawFaces(g);
+        ProjectedMesh projectedMesh = projectMesh(bigMesh);
+        projectedMesh.drawFaces(g);
+        //projectedMesh.drawEdges(g);
         /*for(ProjectedMesh mesh : projectedMeshes){
             mesh.drawVertices(g);
             mesh.drawEdges(g);
