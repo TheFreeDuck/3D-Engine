@@ -17,16 +17,12 @@ public abstract class Mesh  {
 
     protected Orientation orientation;
 
-    protected Color color;
-
     protected Mesh() {
         this.orientation = Orientation.standard();
         this.origin = new Point3d(10,0,0);
         vertices = new ArrayList<>();
         edges = new ArrayList<>();
         faces = new ArrayList<>();
-
-        color = Color.white;
     }
 
     public abstract Mesh update(Point3d position, Orientation orientation);
@@ -55,10 +51,61 @@ public abstract class Mesh  {
         this.orientation = targetOrientation;
     }
 
+    public void randomizeColor() {
+        for(Face face : faces) {
+            face.setColor(new Color((float) Math.random(), (float) Math.random(), (float) Math.random()));
+        }
+    }
+
+    public void setColor(Color color) {
+        for(Face face : faces) {
+            face.setColor(color);
+        }
+    }
+
+    public void addMesh(Mesh mesh) {
+        List<Point3d> newVertices = new ArrayList<>(vertices);
+        List<Edge> newEdges = new ArrayList<>(edges);
+        List<Face> newFaces = new ArrayList<>(faces);
+
+        int vertexOffset = newVertices.size();
+
+        // Add vertices
+        newVertices.addAll(mesh.getVertices());
+
+        // Add edges
+        for (Edge edge : mesh.getEdges()) {
+            int v1 = edge.getPoint1() + vertexOffset;
+            int v2 = edge.getPoint2() + vertexOffset;
+            newEdges.add(new Edge(v1, v2));
+        }
+
+        // Add faces
+        for (Face face : mesh.getFaces()) {
+            List<Integer> newVertexIndices = new ArrayList<>();
+            for (int index : face.getVertexIndices()) {
+                newVertexIndices.add(index + vertexOffset);
+            }
+            Face newFace = new Face(newVertexIndices);
+            newFace.setColor(face.getColor());
+            newFaces.add(newFace);
+        }
+
+        // Update the current mesh with the combined vertices, edges, and faces
+        vertices = newVertices;
+        edges = newEdges;
+        faces = newFaces;
+    }
+
+
 
 
     public List<Point3d> getVertices() {
         return vertices;
+    }
+
+    public List<Edge> getEdges() {
+        return edges;
     }
 
     public void setVertices(List<Point3d> vertices) {
@@ -71,13 +118,5 @@ public abstract class Mesh  {
 
     public List<Face> getFaces() {
         return faces;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
     }
 }

@@ -2,11 +2,12 @@ package main.java.mesh.standardmeshes;
 
 import main.java.math.Point3d;
 import main.java.mesh.Edge;
-import main.java.mesh.Mesh;
 import main.java.mesh.Face;
+import main.java.mesh.Mesh;
 import main.java.object3d.Orientation;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CuboidMesh extends Mesh {
     double width;
@@ -44,23 +45,37 @@ public class CuboidMesh extends Mesh {
         edges.add(new Edge(5, 6)); // index 10
         edges.add(new Edge(6, 7)); // index 11
 
-        // Create triangles
+        /*// Create triangles
         faces = new ArrayList<>();
-        faces.add(new Face(0, 2, 3));
-        faces.add(new Face(0, 1, 2));
-        faces.add(new Face(1, 5, 6));
-        faces.add(new Face(1, 2, 5));
-        faces.add(new Face(4, 5, 6));
-        faces.add(new Face(4, 6, 7));
-        faces.add(new Face(0, 4, 7));
-        faces.add(new Face(0, 3, 7));
-        faces.add(new Face(3, 6, 7));
-        faces.add(new Face(3, 5, 6));
-        faces.add(new Face(0, 1, 4));
-        faces.add(new Face(1, 4, 5));
+        faces.add(new Face(0, 1, 2));   // Front face (triangle 1)
+        faces.add(new Face(2, 3, 0));   // Front face (triangle 2)
+        faces.add(new Face(1, 6, 5));   // Top face (triangle 1)
+        faces.add(new Face(5, 2, 1));   // Top face (triangle 2)
+        faces.add(new Face(2, 5, 4));   // Right face (triangle 1)
+        faces.add(new Face(4, 3, 2));   // Right face (triangle 2)
+        faces.add(new Face(1, 6, 7));   // Left face (triangle 1)
+        faces.add(new Face(7, 0, 1));   // Left face (triangle 2)
+        faces.add(new Face(0, 3, 4));   // Bottom face (triangle 1)
+        faces.add(new Face(4, 7, 0));   // Bottom face (triangle 2)
+        faces.add(new Face(6, 5, 4));   // Back face (triangle 1)
+        faces.add(new Face(4, 7, 6));   // Back face (triangle 2)*/
+
+        // Create quads
+        faces = new ArrayList<>();
+        faces.add(new Face(0, 1, 2, 3));   // Front face
+        faces.add(new Face(6, 5, 2, 1));   // Top face
+        faces.add(new Face(5, 4, 3, 2));   // Right face
+        faces.add(new Face(1, 6, 7, 0));   // Left face
+        faces.add(new Face(7, 4, 3, 0));  // Bottom face
+        faces.add(new Face(6, 5, 4, 7));   // Back face
+
+
+
+
+
     }
 
-    public CuboidMesh(Point3d origin, Orientation orientation, double height, double width, double length) {
+    public CuboidMesh(Point3d origin, Orientation orientation, double height, double width, double length, List<Face> faceList) {
         super();
         this.origin = origin;
         this.orientation = orientation;
@@ -95,23 +110,11 @@ public class CuboidMesh extends Mesh {
         edges.add(new Edge(6, 7)); // index 11
 
         // Create triangles
-        faces = new ArrayList<>();
-        faces.add(new Face(0, 2, 3));
-        faces.add(new Face(0, 1, 2));
-        faces.add(new Face(1, 5, 6));
-        faces.add(new Face(1, 2, 5));
-        faces.add(new Face(4, 5, 6));
-        faces.add(new Face(4, 6, 7));
-        faces.add(new Face(0, 4, 7));
-        faces.add(new Face(0, 3, 7));
-        faces.add(new Face(3, 6, 7));
-        faces.add(new Face(3, 5, 6));
-        faces.add(new Face(0, 1, 4));
-        faces.add(new Face(1, 4, 5));
+        this.faces =  faceList;
     }
 
     @Override
     public Mesh update(Point3d position, Orientation orientation) {
-        return new CuboidMesh(position, orientation, height, width, length);
+        return new CuboidMesh(position, orientation, height, width, length, faces);
     }
 }

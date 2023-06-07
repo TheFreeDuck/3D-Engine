@@ -8,6 +8,7 @@ import main.java.mesh.Face;
 import main.java.object3d.Orientation;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TorusMesh extends Mesh {
     double majorRadius;
@@ -73,7 +74,7 @@ public class TorusMesh extends Mesh {
         }
     }
 
-    public TorusMesh(Point3d origin, Orientation orientation, double majorRadius, double minorRadius, int nMajorSegments, int nMinorSegments) {
+    public TorusMesh(Point3d origin, Orientation orientation, double majorRadius, double minorRadius, int nMajorSegments, int nMinorSegments,  List<Face> faceList) {
         super();
         this.origin = origin;
         this.orientation = orientation;
@@ -117,24 +118,12 @@ public class TorusMesh extends Mesh {
         }
 
         // Create triangles
-        faces = new ArrayList<>();
-        count = 0;
-        for (int i = 0; i < nMajorSegments; i++) {
-            for (int j = 0; j < nMinorSegments; j++) {
-                int v1 = j + (nMinorSegments + 1) * i;
-                int v2 = j + (nMinorSegments + 1) * (i + 1);
-                int v3 = j + 1 + (nMinorSegments + 1) * (i + 1);
-                int v4 = j + 1 + (nMinorSegments + 1) * i;
-
-                faces.add(new Face(v1, v2, v3));
-                faces.add(new Face(v1, v3, v4));
-            }
-        }
+        this.faces = faceList;
     }
 
 
     @Override
     public Mesh update(Point3d position, Orientation orientation) {
-        return new TorusMesh(position, orientation, majorRadius, minorRadius, nMajorSegments, nMinorSegments);
+        return new TorusMesh(position, orientation, majorRadius, minorRadius, nMajorSegments, nMinorSegments,faces);
     }
 }

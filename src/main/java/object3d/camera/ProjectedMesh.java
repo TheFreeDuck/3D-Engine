@@ -36,7 +36,7 @@ public class ProjectedMesh{
             Point2d p1 = edge.getP1();
             Point2d p2 = edge.getP2();
             if(p1 != null && p2 != null){
-                g.setColor(mesh.getColor());
+                g.setColor(Color.white);
                 g.drawLine((int) p1.getX(), (int) p1.getY(), (int) p2.getX(), (int) p2.getY());
             }
 
@@ -58,7 +58,7 @@ public class ProjectedMesh{
                 }
             }
 
-            g.setColor(new Color((int) (Math.random()*255), (int) (Math.random()*255), (int) (Math.random()*255)));
+            g.setColor(mesh.getFaces().get(projectedFaces.indexOf(projectedFace)).getColor());
             g.fillPolygon(xPoints, yPoints, points.size());
         }
 

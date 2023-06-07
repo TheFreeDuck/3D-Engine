@@ -18,7 +18,7 @@ public class Player extends Object3d {
         camera = new Camera(position, orientation, gamePanel);
         movement = new Vector(0, 0, 0);
         movementSpeed = 0;
-        rotationSpeed = 0.01;
+        rotationSpeed = 0.02;
     }
 
     @Override

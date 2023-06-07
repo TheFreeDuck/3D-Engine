@@ -7,6 +7,7 @@ import main.java.mesh.Face;
 import main.java.object3d.Orientation;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PyramidMesh extends Mesh {
     double baseWidth;
@@ -52,7 +53,7 @@ public class PyramidMesh extends Mesh {
         faces.add(new Face(4, 1, 5));
     }
 
-    public PyramidMesh(Point3d origin, Orientation orientation, double baseWidth, double height) {
+    public PyramidMesh(Point3d origin, Orientation orientation, double baseWidth, double height,  List<Face> faceList) {
         super();
         this.origin = origin;
         this.orientation = orientation;
@@ -84,19 +85,11 @@ public class PyramidMesh extends Mesh {
         edges.add(new Edge(4, 5));
 
         // Create triangles
-        faces = new ArrayList<>();
-        faces.add(new Face(0, 1, 2));
-        faces.add(new Face(0, 2, 3));
-        faces.add(new Face(0, 3, 4));
-        faces.add(new Face(0, 4, 1));
-        faces.add(new Face(1, 2, 5));
-        faces.add(new Face(2, 3, 5));
-        faces.add(new Face(3, 4, 5));
-        faces.add(new Face(4, 1, 5));
+        this.faces = faceList;
     }
 
     @Override
     public Mesh update(Point3d position, Orientation orientation) {
-        return new PyramidMesh(position, orientation, baseWidth, height);
+        return new PyramidMesh(position, orientation, baseWidth, height,faces);
     }
 }

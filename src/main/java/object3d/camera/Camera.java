@@ -7,11 +7,13 @@ import main.java.math.Ray;
 import main.java.math.Vector;
 import main.java.mesh.Face;
 import main.java.mesh.Mesh;
+import main.java.mesh.standardmeshes.BigMesh;
 import main.java.object3d.Object3d;
 import main.java.object3d.Orientation;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -44,12 +46,16 @@ public class Camera extends Object3d {
      * @param g the graphics object
      */
     public void drawProjectedMeshes(List<Mesh> meshes, Graphics g) {
-        List<ProjectedMesh> projectedMeshes = projectMeshes(meshes);
-        for(ProjectedMesh mesh : projectedMeshes){
+        Mesh bigMesh = new BigMesh();
+        for(Mesh mesh : meshes){
+            bigMesh.addMesh(mesh);
+        }
+        projectMesh(bigMesh).drawFaces(g);
+        /*for(ProjectedMesh mesh : projectedMeshes){
             mesh.drawVertices(g);
             mesh.drawEdges(g);
             mesh.drawFaces(g);
-        }
+        }*/
 
     }
 
@@ -73,18 +79,39 @@ public class Camera extends Object3d {
      */
     private ProjectedMesh projectMesh(Mesh mesh) {
         ProjectedMesh projectedMesh = new ProjectedMesh(mesh);
-        List<ProjectedFace> projectedFaces =  new ArrayList<>();
+        List<ProjectedFace> projectedFaces = new ArrayList<>();
+        Comparator<Face> cameraDistanceComparator = new CameraDistanceComparator(observer, mesh.getVertices());
+        mesh.getFaces().sort(cameraDistanceComparator);
+
         for (Face face : mesh.getFaces()) {
             ProjectedFace projectedFace = new ProjectedFace();
             List<Point2d> projectedVertices = new ArrayList<>();
-            for (int vertexIndex : face.getVertexIndices()) {
-                Point2d projectedPoint = projectPoint3dInFrontOfCamera(mesh.getVertices().get(vertexIndex));
-                projectedVertices.add(projectedPoint);
-                projectedMesh.getProjectedPoints().add(projectedPoint);
+
+            for (int i = 0; i < face.getVertexIndices().size(); i++) {
+                int currentVertexIndex = face.getVertexIndices().get(i);
+                int nextVertexIndex = face.getVertexIndices().get((i + 1) % face.getVertexIndices().size());
+
+                Point3d currentVertex = mesh.getVertices().get(currentVertexIndex);
+                Point3d nextVertex = mesh.getVertices().get(nextVertexIndex);
+
+                Point2d projectedPoint;
+
+                if ((!currentVertex.isInFrontOf(observer.addDistanceAlongVector(getOrientation().getForward(),1), getOrientation().getForward())) && (nextVertex.isInFrontOf(observer.addDistanceAlongVector(getOrientation().getForward(),1), getOrientation().getForward()))) {
+                    projectedPoint = clippingPoint(currentVertex, nextVertex);
+                } else {
+                    projectedPoint = projectPoint3dInFrontOfCamera(currentVertex);
+                }
+
+                if (projectedPoint != null) {
+                    projectedVertices.add(projectedPoint);
+                    projectedMesh.getProjectedPoints().add(projectedPoint);
+                }
             }
+
             projectedFace.setProjectedPoints(projectedVertices);
             projectedFaces.add(projectedFace);
         }
+
         projectedMesh.setProjectedFaces(projectedFaces);
         return projectedMesh;
     }

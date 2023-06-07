@@ -6,10 +6,6 @@ import java.util.List;
 
 public class ProjectedFace {
     List<Point2d> projectedPoints;
-    Camera camera;
-
-    public ProjectedFace() {
-    }
 
     public List<Point2d> getProjectedPoints() {
         return projectedPoints;

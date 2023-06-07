@@ -8,6 +8,7 @@ import main.java.mesh.Face;
 import main.java.object3d.Orientation;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SphereMesh extends Mesh {
     double radius;
@@ -70,7 +71,7 @@ public class SphereMesh extends Mesh {
         }
     }
 
-    public SphereMesh(Point3d origin, Orientation orientation, double radius, int nLongitudeSegments, int nLatitudeSegments) {
+    public SphereMesh(Point3d origin, Orientation orientation, double radius, int nLongitudeSegments, int nLatitudeSegments,  List<Face> faceList) {
         super();
         this.nLatitudeSegments  = nLatitudeSegments;
         this.nLongitudeSegments = nLongitudeSegments;
@@ -112,24 +113,11 @@ public class SphereMesh extends Mesh {
             }
         }
 
-        // Create triangles
-        faces = new ArrayList<>();
-        count = 0;
-        for (int i = 0; i < nLongitudeSegments; i++) {
-            for (int j = 0; j < nLatitudeSegments; j++) {
-                int v1 = j + (nLatitudeSegments + 1) * i;
-                int v2 = j + (nLatitudeSegments + 1) * (i + 1);
-                int v3 = j + 1 + (nLatitudeSegments + 1) * (i + 1);
-                int v4 = j + 1 + (nLatitudeSegments + 1) * i;
-
-                faces.add(new Face(v1, v2, v3));
-                faces.add(new Face(v1, v3, v4));
-            }
-        }
+        this.faces = faceList;
     }
 
     @Override
     public Mesh update(Point3d position, Orientation orientation) {
-        return new SphereMesh(position, orientation, radius, nLongitudeSegments, nLatitudeSegments);
+        return new SphereMesh(position, orientation, radius, nLongitudeSegments, nLatitudeSegments, faces);
     }
 }

@@ -95,6 +95,68 @@ public class ObjMesh extends Mesh {
 
         // Create edges
         edges = new ArrayList<>();
+        List<Face> faces = new ArrayList<>(faceList);
+        for (Face face : faces) {
+            List<Integer> vertexIndices = face.getVertexIndices();
+            int numVertices = vertexIndices.size();
+            for (int i = 0; i < numVertices; i++) {
+                int v1 = vertexIndices.get(i);
+                int v2 = vertexIndices.get((i + 1) % numVertices); // Wrap around for the last vertex
+                edges.add(new Edge(v1, v2));
+            }
+        }
+
+
+        // Set faces
+        this.faces = faces;
+    }
+
+    public ObjMesh(Point3d position, Orientation orientation, InputStream inputStream) {
+        super();
+        this.origin  = position;
+        this.orientation = orientation;
+
+        objVertices = new ArrayList<>();
+        faceList = new ArrayList<>();
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.trim().split("\\s+");
+                if (parts[0].equals("v")) {
+                    double x = Double.parseDouble(parts[1]);
+                    double y = Double.parseDouble(parts[2]);
+                    double z = Double.parseDouble(parts[3]);
+                    Point3d point3d = new Point3d(x, y, z);
+                    objVertices.add(point3d);
+                } else if (parts[0].equals("f")) {
+                    List<Integer> vertexIndices = new ArrayList<>();
+                    for (int i = 1; i < parts.length; i++) {
+                        String[] indices = parts[i].split("/");
+                        int vertexIndex = Integer.parseInt(indices[0]) - 1; // Subtract 1 to convert to 0-based index
+                        vertexIndices.add(vertexIndex);
+                    }
+                    faceList.add(new Face(vertexIndices));
+                }
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Create vertices
+        List<Point3d> vertices = new ArrayList<>();
+        for (Point3d point3d : objVertices) {
+            // Apply transformation to each point3d
+            Point3d transformedPoint3d = orientation.multiplyVector(new Vector(point3d)).add(origin);
+            vertices.add(transformedPoint3d);
+        }
+
+        // Add vertices to the mesh
+        this.vertices.addAll(vertices);
+
+        // Create edges
+        edges = new ArrayList<>();
         for (Face face : faceList) {
             List<Integer> vertexIndices = face.getVertexIndices();
             int numVertices = vertexIndices.size();

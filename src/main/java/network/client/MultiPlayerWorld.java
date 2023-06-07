@@ -32,7 +32,7 @@ public class MultiPlayerWorld extends World {
         otherPlayers = new ArrayList<>();
 
         objects.add(new Object3d(new Point3d(2,0,0),Orientation.standard(),new CuboidMesh(1,1,1)));
-        objects.add(new Object3d(new Point3d(2.5,2,0.5), Orientation.standard(),new SphereMesh(0.5,20,20)));
+        objects.add(new Object3d(new Point3d(2.5,2,0.5),Orientation.standard(),new SphereMesh(0.5,20,20)));
         objects.add(new Object3d(new Point3d(2.5,3.5,0),Orientation.standard(),new PyramidMesh(1,1)));
 
         objects.add(new Object3d(new Point3d(2.5,5.5,0.3),Orientation.standard(),new TorusMesh(0.6,0.3,20,20)));
@@ -44,7 +44,7 @@ public class MultiPlayerWorld extends World {
 
         //objects.add(new Sphere(25, new Point3d(2.5,70 ,13),20,20));
 
-        objects.add(new Object3d(new Point3d(0, 10, 0), Orientation.standard(),new CuboidMesh(21, 21, 21)));
+        //objects.add(new Object3d(new Point3d(0, 10, 0), Orientation.standard(),new CuboidMesh(21, 21, 21)));
         //objects.add(player);
         for (int i = 0; i < 100; i++) {
             objects.add(new Object3d(new Point3d(Math.max(2, Math.random() * 20), Math.random() * 20+10, Math.random() * 20), Orientation.standard(),new CuboidMesh(1, 1, 1)));
@@ -52,7 +52,7 @@ public class MultiPlayerWorld extends World {
 
         Object3d sphere2 = new Object3d(new Point3d(2.5,70 ,13),Orientation.standard(), new SphereMesh(25,20,20));
         objects.add(sphere2);
-        //sphere.setRotationVelocity(new Vector(0.02,0.05,0.08));
+        sphere2.setRotationVelocity(new Vector(0.02,0.05,0.08));
 
         Object3d monk = new Object3d(new Point3d(3,-2,0),new Orientation(new Vector(-1,0,0),new Vector(0,-1,0)),new ObjMesh(getClass().getClassLoader().getResourceAsStream("SuzanMonkey.obj")));
         objects.add(monk);
@@ -61,6 +61,7 @@ public class MultiPlayerWorld extends World {
         plane = new Object3d(new Point3d(800,-900,0),new Orientation(new Vector(-1,0,0),new Vector(0,-1,0)),new ObjMesh(getClass().getClassLoader().getResourceAsStream("Plane.obj")));
         objects.add(plane);
         plane.setRotationVelocity(new Vector(0,0,-0.15));
+
         //monk.setVelocity(new Vector(0.01,0,0));
 
         //objects.add(new ObjObject(new Point3d(10,-30,0),new Orientation(new Vector(-1,0,0),new Vector(0,0,-1)),"glider.obj"));
@@ -75,8 +76,9 @@ public class MultiPlayerWorld extends World {
 
     public void draw(Graphics g) {
         try {
-            player.getCamera().drawProjectedMeshes(objects.meshes(), g);
-            player.getCamera().drawProjectedMeshes(otherPlayers,g);
+            List<Mesh> meshes = new ArrayList<>(objects.meshes());
+            meshes.addAll(otherPlayers);
+            player.getCamera().drawProjectedMeshes(meshes, g);
         }catch (Exception e ){
             e.getStackTrace();
         }

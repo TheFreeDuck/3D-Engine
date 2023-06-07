@@ -9,7 +9,6 @@ import main.java.mesh.meshloaders.ObjMesh;
 import main.java.network.server.PlayerData;
 import main.java.object3d.Orientation;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +29,8 @@ public class MultiPlayerGame extends Game{
         List<Mesh> otherPlayers = new ArrayList<>();
         for (PlayerData playerData : playerDataList) {
             if(playerData != null) {
-                Mesh playerMesh = new ObjMesh(getClass().getClassLoader().getResourceAsStream("SuzanMonkey.obj"));
-                playerMesh.setColor(Color.green);
+                Mesh playerMesh = new ObjMesh(playerData.getPosition(), playerData.getOrientation(), (getClass().getClassLoader().getResourceAsStream("SuzanMonkey.obj")));
+                playerMesh.randomizeColor();
                 otherPlayers.add(playerMesh);
             }
         }

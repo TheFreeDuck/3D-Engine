@@ -13,7 +13,6 @@ public abstract class World{
     protected Objects objects;
     protected World(GamePanel gamePanel) {
         player = new Player(new Point3d(0, 0, 0), Orientation.standard(), gamePanel);
-        
     }
 
     public abstract void update();
