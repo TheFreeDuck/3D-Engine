@@ -57,7 +57,6 @@ public class Player extends Object3d {
         }
         if(Keys.ROTATE_UP.isPressed()){
             //rotation distorting the projected image when rotating like this. dont know why :(
-            //orientation.rotate(-rotationSpeed,orientation.getRight());
         }
         if(Keys.ROTATE_DOWN.isPressed()){
             //rotation distorting the projected image when rotating like this. dont know why :(

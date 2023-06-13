@@ -39,7 +39,7 @@ public class SinglePlayerWorld extends World {
 
         //objects.add(new Sphere(25, new Point3d(2.5,70 ,13),20,20));
 
-        //objects.add(new Object3d(new Point3d(0, 10, 0), Orientation.standard(),new CuboidMesh(21, 21, 21)));
+        objects.add(new Object3d(new Point3d(0, 10, 0), Orientation.standard(),new CuboidMesh(0, 21, 21)));
         //objects.add(player);
         for (int i = 0; i < 100; i++) {
             objects.add(new Object3d(new Point3d(Math.max(2, Math.random() * 20), Math.random() * 20+10, Math.random() * 20), Orientation.standard(),new CuboidMesh(1, 1, 1)));
